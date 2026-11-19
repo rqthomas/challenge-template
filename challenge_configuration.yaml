@@ -11,20 +11,20 @@
 project_id: templatecast
 challenge_long_name: Example Forecasting Challenge
 # CHANGE: this repository, and where its dashboard is published (GitHub Pages).
-github_repo: eco4cast/challenge-template
+github_repo: rqthomas/challenge-template
 challenge_url: https://projects.ecoforecast.org/challenge-template
 
 # STORAGE --------------------------------------------------------------------
 # CHANGE: your own S3 store. The forecasts, scores, summaries and targets
 # buckets must allow anonymous reads.
 endpoint: sdsc.osn.xsede.org
-forecasts_bucket: bio230014-bucket01/challenges/forecasts
-summaries_bucket: bio230014-bucket01/challenges/forecasts
-scores_bucket: bio230014-bucket01/challenges/scores
-targets_bucket: bio230014-bucket01/challenges/targets
-model_metadata_bucket: bio230014-bucket01/challenges/metadata/model_id
+forecasts_bucket: bio230014-bucket01/test_generalization/challenges/forecasts
+summaries_bucket: bio230014-bucket01/test_generalization/challenges/forecasts
+scores_bucket: bio230014-bucket01/test_generalization/challenges/scores
+targets_bucket: bio230014-bucket01/test_generalization/challenges/targets
+model_metadata_bucket: bio230014-bucket01/test_generalization/challenges/metadata/model_id
 # Record of submissions already processed (one file per challenge).
-processed_submissions: bio230014-bucket01/challenges/metadata/processed_submissions_templatecast.csv
+processed_submissions: bio230014-bucket01/test_generalization/metadata/processed_submissions_templatecast.csv
 # Where participants upload forecasts.
 submissions_endpoint: s3-west.nrp-nautilus.io
 submissions_bucket: submissions
