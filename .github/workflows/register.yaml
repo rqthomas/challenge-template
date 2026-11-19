@@ -1,0 +1,24 @@
+# Trigger for the engine's register-forecast-repo workflow. Copy into
+# .github/workflows/ of a challenge repository, together with the issue form
+# (inst/issue_forms/register-forecast-repo.yml, to .github/ISSUE_TEMPLATE/); set
+# the engine version after @.
+# A contributor opens the form to register a GitHub repository; the workflow
+# checks it and adds it to the registry named by submissions$github$registry.
+name: register-forecast-repo
+
+on:
+  issues:
+    types: [opened, edited]
+
+# Registrations commit to the same file, so they take turns.
+concurrency:
+  group: register-forecast-repo
+  cancel-in-progress: false
+
+jobs:
+  run:
+    if: contains(github.event.issue.labels.*.name, 'register-repo')
+    permissions:
+      contents: write
+      issues: write
+    uses: rqthomas/challenge-ci/.github/workflows/_register.yaml@v0.1.0-rc.1

@@ -1,10 +1,9 @@
 # Configuration of an example forecasting challenge. Every key is described in
 # the engine's docs/configuration.md (eco4cast/challenge-ci).
 #
-# As shipped, this file points at the Ecological Forecasting Initiative's
-# public store under its own project_id, `templatecast`, so every stage can be
-# dry-run (DRY_RUN=true) before you have storage of your own. Replace every
-# value marked CHANGE before running anything for real.
+# This challenge stores everything in the Backblaze B2 bucket `template-challenge`
+# under the project_id `templatecast`. To start your own challenge from this
+# file, replace every value marked CHANGE and the storage section.
 
 # IDENTITY -------------------------------------------------------------------
 # CHANGE: a short id, used in every path and row the challenge writes.
@@ -15,36 +14,56 @@ github_repo: rqthomas/challenge-template
 challenge_url: https://projects.ecoforecast.org/challenge-template
 
 # STORAGE --------------------------------------------------------------------
-# CHANGE: your own S3 store. The forecasts, scores, summaries and targets
-# buckets must allow anonymous reads.
-endpoint: sdsc.osn.xsede.org
-forecasts_bucket: bio230014-bucket01/test_generalization/challenges/forecasts
-summaries_bucket: bio230014-bucket01/test_generalization/challenges/forecasts
-scores_bucket: bio230014-bucket01/test_generalization/challenges/scores
-targets_bucket: bio230014-bucket01/test_generalization/challenges/targets
-model_metadata_bucket: bio230014-bucket01/test_generalization/challenges/metadata/model_id
+# Everything lives in one Backblaze B2 bucket, `template-challenge`, through its
+# S3-compatible API. The region (us-east-005) is read from the endpoint. The
+# forecasts, scores, summaries and targets must be readable without a key: make
+# the bucket public (see "Going live" in README.md).
+endpoint: s3.us-east-005.backblazeb2.com
+# `true`: the engine reads the bucket anonymously, as participants do. Set
+# `false` to keep the bucket private (or if B2 refuses anonymous listing, see
+# "Going live" in README.md): the engine then reads with the key, and
+# participants cannot read the data without one.
+public_read: true
+forecasts_bucket: template-challenge/forecasts
+summaries_bucket: template-challenge/forecasts
+scores_bucket: template-challenge/scores
+targets_bucket: template-challenge/targets
+model_metadata_bucket: template-challenge/metadata/model_id
 # Record of submissions already processed (one file per challenge).
-processed_submissions: bio230014-bucket01/test_generalization/metadata/processed_submissions_templatecast.csv
-# Where participants upload forecasts.
-submissions_endpoint: s3-west.nrp-nautilus.io
-submissions_bucket: submissions
+processed_submissions: template-challenge/metadata/processed_submissions.csv
 # Scratch space used while scoring; files under it are deleted every run.
 scratch:
-  endpoint: s3-west.nrp-nautilus.io
-  bucket: efi-scores/tmp/templatecast
+  endpoint: s3.us-east-005.backblazeb2.com
+  bucket: template-challenge/tmp
 # Names of the environment variables (GitHub secrets) holding each store's
-# keys. These are the defaults; never put the keys themselves here.
+# keys; never put the keys themselves here. The secrets keep the names the
+# engine's workflows pass, so the B2 application key ID is the secret OSN_KEY and
+# the application key is OSN_SECRET. Scoring's scratch space is in the same
+# bucket, so it uses the same key.
 credentials:
   main: {key_env: OSN_KEY, secret_env: OSN_SECRET}
-  submissions: {key_env: AWS_ACCESS_KEY_SUBMISSIONS, secret_env: AWS_SECRET_ACCESS_KEY_SUBMISSIONS}
-  scratch: {key_env: EFI_NRP_KEY, secret_env: EFI_NRP_SECRET}
+  scratch: {key_env: OSN_KEY, secret_env: OSN_SECRET}
 
 # SUBMISSIONS ----------------------------------------------------------------
+# Participants submit from their own public GitHub repositories: the CI reads
+# new forecast files from every repository listed in the registry. Nothing is
+# uploaded, so there is no submissions bucket and no key to hand out. A
+# repository describes its models in `challenge-model.yaml`; see "Submissions
+# from GitHub repositories" in the engine's docs/operations.md.
 submissions:
-  # The EFI submissions bucket is shared, so only files named with this
-  # challenge's themes (`lakes-...`) are touched. Keep this true for a shared
-  # bucket; with a bucket of your own it can go.
-  known_themes_only: true
+  github:
+    # CSV of the repositories to read (`repo,repo_id,registered`): a row per
+    # repository, added by the registration bot (or by hand).
+    registry: registry/forecast_repos.csv
+    # Participants register by opening the issue form in
+    # .github/ISSUE_TEMPLATE; a bot adds the repository to the registry.
+    issue_registration: true
+  # Do not read a submissions bucket. To also accept uploads to one, remove
+  # this line and set `submissions_endpoint`, `submissions_bucket` and
+  # `credentials: {submissions: ...}` (see the engine's docs/configuration.md).
+  use_bucket: false
+  # Write the baseline forecasts straight to the forecasts bucket.
+  baselines_destination: forecasts_bucket
   min_reference_date: '2026-01-01'
 
 # SITES ----------------------------------------------------------------------
@@ -67,7 +86,7 @@ target_groups:
   Lakes:
     targets_script: challenge/targets/lakes_targets.R
     # CHANGE with project_id: the file the targets script writes.
-    targets_file: "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=templatecast/duration=P1D/lakes-targets.csv.gz"
+    targets_file: "https://s3.us-east-005.backblazeb2.com/template-challenge/targets/project_id=templatecast/duration=P1D/lakes-targets.csv.gz"
     variable: [temperature]
     duration: [P1D]
     max_horizon: [30]

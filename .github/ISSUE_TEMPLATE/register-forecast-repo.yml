@@ -1,0 +1,29 @@
+# Issue form for registering a forecast repository. Copy into
+# .github/ISSUE_TEMPLATE/ of a challenge repository, with the register trigger
+# workflow (inst/workflows/register.yaml). The label must stay `register-repo`:
+# the workflow only runs on issues that have it. The answer must stay under a
+# heading called "Repository" (the form field's label).
+name: Register a forecast repository
+description: Ask the challenge to read your forecasts from a public GitHub repository.
+title: "Register forecast repository"
+labels: ["register-repo"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Before you register, your repository must be **public** and contain
+        - forecast files in a folder such as `forecasts/`, named
+          `<theme>-<YYYY-MM-DD>-<model_id>.csv.gz`, and
+        - a `challenge-model.yaml` at the top of the repository that names this
+          challenge, your `model_id` and your model's metadata.
+
+        A bot checks the repository and replies here within a few minutes. If it finds a
+        problem, fix it and edit this issue to try again.
+  - type: input
+    id: repository
+    attributes:
+      label: Repository
+      description: The repository's address, as `owner/name` or `https://github.com/owner/name`.
+      placeholder: your-account/your-forecasts
+    validations:
+      required: true
