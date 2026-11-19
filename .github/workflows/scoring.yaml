@@ -1,0 +1,31 @@
+# Trigger for the engine's scoring workflow. Copy into .github/workflows/ of a
+# challenge repository; set the schedule, and the engine version after @.
+name: scoring
+
+on:
+  # Off until the challenge is set up: uncomment to turn the schedule on
+  # (step 12 of docs/launching-a-new-challenge.md in the engine).
+  # schedule:
+  #  - cron: '0 10 * * *'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry run: read real data, write nothing (output kept as an artifact)'
+        type: boolean
+        default: false
+      since:
+        description: Score forecasts after this date (YYYY-MM-DD); empty for six months ago
+        type: string
+        default: ''
+
+concurrency:
+  group: scoring
+  cancel-in-progress: false
+
+jobs:
+  run:
+    uses: eco4cast/challenge-ci/.github/workflows/_scoring.yaml@v0.1.0
+    with:
+      dry_run: ${{ inputs.dry_run || false }}
+      since: ${{ inputs.since || '' }}
+    secrets: inherit

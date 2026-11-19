@@ -1,0 +1,35 @@
+# Trigger for the engine's baseline-forecasts workflow. Copy into .github/workflows/ of a
+# challenge repository; set the schedule, and the engine version after @.
+# The daily cron runs the `daily` baselines, the weekly cron the `weekly` ones;
+# if you change the weekly cron, change the same string in `schedule:` below.
+name: baseline-forecasts
+
+on:
+  # Off until the challenge is set up: uncomment to turn the schedule on
+  # (step 12 of docs/launching-a-new-challenge.md in the engine).
+  # schedule:
+  #  - cron: '0 20 * * *'
+  #  - cron: '0 1 * * SUN'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry run: read real data, write nothing (output kept as an artifact)'
+        type: boolean
+        default: false
+      schedule:
+        description: Which baselines to run
+        type: choice
+        options: [daily, weekly]
+        default: daily
+
+concurrency:
+  group: baselines-${{ github.event.schedule || inputs.schedule }}
+  cancel-in-progress: false
+
+jobs:
+  run:
+    uses: eco4cast/challenge-ci/.github/workflows/_baselines.yaml@v0.1.0
+    with:
+      dry_run: ${{ inputs.dry_run || false }}
+      schedule: ${{ (github.event.schedule == '0 1 * * SUN' || inputs.schedule == 'weekly') && 'weekly' || 'daily' }}
+    secrets: inherit

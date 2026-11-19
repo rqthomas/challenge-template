@@ -1,0 +1,14 @@
+# Trigger for the engine's check workflow. Copy into .github/workflows/ of a
+# challenge repository; set the engine version after @.
+# Checks the config and the files it names on every pull request and push.
+name: check
+
+on:
+  pull_request:
+  push:
+    branches: main
+  workflow_dispatch:
+
+jobs:
+  run:
+    uses: eco4cast/challenge-ci/.github/workflows/_check.yaml@v0.1.0

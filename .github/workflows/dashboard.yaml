@@ -1,0 +1,30 @@
+# Trigger for the engine's dashboard workflow. Copy into .github/workflows/ of a
+# challenge repository; set the schedule, and the engine version after @.
+name: dashboard
+
+on:
+  # Off until the challenge is set up: uncomment to turn the schedule on
+  # (step 12 of docs/launching-a-new-challenge.md in the engine).
+  # schedule:
+  #  - cron: '0 8 * * *'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry run: read real data, write nothing (output kept as an artifact)'
+        type: boolean
+        default: false
+
+concurrency:
+  group: dashboard
+  cancel-in-progress: false
+
+# Publishing pushes to the gh-pages branch.
+permissions:
+  contents: write
+
+jobs:
+  run:
+    uses: eco4cast/challenge-ci/.github/workflows/_dashboard.yaml@v0.1.0
+    with:
+      dry_run: ${{ inputs.dry_run || false }}
+    secrets: inherit

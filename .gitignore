@@ -1,0 +1,10 @@
+# Local credentials: never commit (see AGENTS.md in challenge-ci).
+.Renviron
+.Rhistory
+.RData
+.Rproj.user/
+.DS_Store
+*.csv.gz
+*.parquet
+dry-run/
+site/

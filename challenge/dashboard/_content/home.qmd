@@ -1,0 +1,12 @@
+<!-- The home page text above the headline numbers. Replace with your own:
+     what the challenge is, who runs it and why. Other files you can add in
+     this folder are listed in ?challengeci::render_dashboard. -->
+
+We invite you to submit forecasts to the `r cfg$challenge_long_name`!
+
+This is an example challenge built from the
+[challenge template](https://github.com/eco4cast/challenge-template): it
+forecasts daily surface water temperature at three lakes.
+
+The [instructions](instructions.qmd) explain how to take part, and
+[what to forecast](targets.qmd) describes the targets.
