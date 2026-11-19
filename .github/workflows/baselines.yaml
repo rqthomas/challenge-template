@@ -28,7 +28,7 @@ concurrency:
 
 jobs:
   run:
-    uses: eco4cast/challenge-ci/.github/workflows/_baselines.yaml@v0.1.0
+    uses: rqthomas/challenge-ci/.github/workflows/_baselines.yaml@v0.1.0-rc.1
     with:
       dry_run: ${{ inputs.dry_run || false }}
       schedule: ${{ (github.event.schedule == '0 1 * * SUN' || inputs.schedule == 'weekly') && 'weekly' || 'daily' }}
