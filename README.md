@@ -106,15 +106,15 @@ the config, a workflow or the code.
 
 | Secret | Needed for | What it is |
 |---|---|---|
-| `OSN_KEY` | every workflow that reads or writes the bucket: targets, baselines, submissions, bundling, scoring, catalog, dashboard | The Backblaze B2 **application key ID**. The name is the engine's, whatever the store is. |
-| `OSN_SECRET` | the same | The B2 **application key** that goes with it. |
+| `S3_ACCESS_KEY_ID` | every workflow that reads or writes the bucket: targets, baselines, submissions, bundling, scoring, catalog, dashboard | The Backblaze B2 **application key ID**. The name is the same for any S3 store. |
+| `S3_SECRET_ACCESS_KEY` | the same | The B2 **application key** that goes with it. |
 | `WORKFLOW_TOKEN` | the *update-engine* workflow | A GitHub fine-grained token for **this repository** with *Contents*, *Pull requests* and *Workflows* set to *Read and write*. |
 | `CATALOG_TOKEN` | the *catalog* workflow | A GitHub fine-grained token for the **catalog repository** only, with *Contents* set to *Read and write*. |
 
 *The B2 key.* In Backblaze open **Application Keys → Add a New Application Key**; name
 it, set *Allow access to Bucket(s)* to `template-challenge` and *Type of Access* to
-**Read and Write**, and create it. B2 shows the keyID (→ `OSN_KEY`) and the
-applicationKey (→ `OSN_SECRET`) only once. Scoring's scratch space is
+**Read and Write**, and create it. B2 shows the keyID (→ `S3_ACCESS_KEY_ID`) and the
+applicationKey (→ `S3_SECRET_ACCESS_KEY`) only once. Scoring's scratch space is
 `template-challenge/tmp` and uses the same key (`credentials` in the config).
 
 *A GitHub fine-grained token.* On github.com click your profile picture →

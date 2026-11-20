@@ -35,14 +35,14 @@ processed_submissions: template-challenge/metadata/processed_submissions.csv
 scratch:
   endpoint: s3.us-east-005.backblazeb2.com
   bucket: template-challenge/tmp
-# Names of the environment variables (GitHub secrets) holding each store's
-# keys; never put the keys themselves here. The secrets keep the names the
-# engine's workflows pass, so the B2 application key ID is the secret OSN_KEY and
-# the application key is OSN_SECRET. Scoring's scratch space is in the same
+# Names of the environment variables (GitHub secrets) holding each store's keys;
+# never put the keys themselves here. The workflows pass the main store's key as
+# S3_ACCESS_KEY_ID (the B2 application key ID) and S3_SECRET_ACCESS_KEY (the
+# application key), which are the defaults. Scoring's scratch space is in the same
 # bucket, so it uses the same key.
 credentials:
-  main: {key_env: OSN_KEY, secret_env: OSN_SECRET}
-  scratch: {key_env: OSN_KEY, secret_env: OSN_SECRET}
+  main: {key_env: S3_ACCESS_KEY_ID, secret_env: S3_SECRET_ACCESS_KEY}
+  scratch: {key_env: S3_ACCESS_KEY_ID, secret_env: S3_SECRET_ACCESS_KEY}
 
 # SUBMISSIONS ----------------------------------------------------------------
 # Participants submit from their own public GitHub repositories: the CI reads

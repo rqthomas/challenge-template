@@ -8,7 +8,7 @@
 # Run from the repository root:  Rscript challenge/targets/lakes_targets.R
 #
 # Environment variables
-#   OSN_KEY, OSN_SECRET  main store, for the upload
+#   S3_ACCESS_KEY_ID, S3_SECRET_ACCESS_KEY  main store, for the upload
 #   DRY_RUN=true         write the targets to a local folder instead
 
 library(challengeci)
