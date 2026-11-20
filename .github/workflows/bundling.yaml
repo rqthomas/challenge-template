@@ -5,8 +5,8 @@ name: bundling
 on:
   # Off until the challenge is set up: uncomment to turn the schedule on
   # (step 12 of docs/launching-a-new-challenge.md in the engine).
-   schedule:
-    - cron: '0 */6 * * *'
+  schedule:
+   - cron: '0 */6 * * *'
   workflow_dispatch:
     inputs:
       dry_run:
