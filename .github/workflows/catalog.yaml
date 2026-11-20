@@ -5,8 +5,8 @@ name: catalog
 on:
   # Off until the challenge is set up: uncomment to turn the schedule on
   # (step 12 of docs/launching-a-new-challenge.md in the engine).
-  # schedule:
-  #  - cron: '0 23 * * *'
+  schedule:
+    - cron: '0 23 * * *'
   workflow_dispatch:
     inputs:
       dry_run:
