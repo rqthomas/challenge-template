@@ -114,7 +114,7 @@ ci:
 # DASHBOARD ------------------------------------------------------------------
 dashboard:
   title: 'Example Forecasting Challenge'
-  contact_email: 'eco4cast.initiative@gmail.com'
+  contact_email: 'rqthomas@vt.edu'
   registration_form_url: 'https://forms.gle/kg2Vkpho9BoMXSy57'
   n_plot_sites: 2
   # A working example submission, linked from the instructions.
