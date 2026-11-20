@@ -124,8 +124,25 @@ What is left to do is on B2 and GitHub:
 6. **Run each workflow once by hand** with *Dry run* ticked, then again with it
    unticked, in this order: targets, baselines, submissions, bundling, scoring,
    catalog, dashboard. Then uncomment the schedules.
-7. **Create the catalog repository** named in `catalog_config` and turn on GitHub
-   Pages for the dashboard.
+7. **Create the catalog repository** named in `catalog_config`.
+8. **Set up the dashboard on GitHub Pages** (once). The dashboard workflow pushes the
+   built site to a `gh-pages` branch, which must exist first (commit or stash any
+   uncommitted changes before this, because the first command empties your working
+   folder until you switch back):
+   ```sh
+   git switch --orphan gh-pages
+   touch .nojekyll && git add .nojekyll
+   git commit -m "Create gh-pages"
+   git push -u origin gh-pages
+   git switch main
+   ```
+   Then, on github.com, open **Settings → Pages**, set **Source** to *Deploy from a
+   branch*, **Branch** to `gh-pages`, folder `/ (root)`, and **Save**. The page shows the
+   site's address (here `https://rqthomas.github.io/challenge-template/`); put it in
+   `challenge_url` in the config. Run the *dashboard* workflow with *Dry run* unticked and
+   the site is live within a minute or two. The engine's
+   [launch guide](https://github.com/eco4cast/challenge-ci/blob/main/docs/launching-a-new-challenge.md#9-set-up-publishing)
+   lists what to do if a step fails.
 
 *Anonymous listing.* B2 serves single files from a public bucket, but I believe it
 does not answer an anonymous request to list a bucket. If step 3 shows that, then
