@@ -23,7 +23,7 @@ endpoint: s3.us-east-005.backblazeb2.com
 # `false` to keep the bucket private (or if B2 refuses anonymous listing, see
 # "Going live" in README.md): the engine then reads with the key, and
 # participants cannot read the data without one.
-public_read: true
+public_read: false
 forecasts_bucket: template-challenge/forecasts
 summaries_bucket: template-challenge/forecasts
 scores_bucket: template-challenge/scores
