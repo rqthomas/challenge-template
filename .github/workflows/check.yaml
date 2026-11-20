@@ -11,4 +11,4 @@ on:
 
 jobs:
   run:
-    uses: rqthomas/challenge-ci/.github/workflows/_check.yaml@v0.1.0-rc.6
+    uses: rqthomas/challenge-ci/.github/workflows/_check.yaml@v0.1.0-rc.7
