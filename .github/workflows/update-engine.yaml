@@ -26,7 +26,7 @@ concurrency:
 
 jobs:
   run:
-    uses: rqthomas/challenge-ci/.github/workflows/_update-engine.yaml@v0.1.0-rc.4
+    uses: rqthomas/challenge-ci/.github/workflows/_update-engine.yaml@v0.1.0-rc.5
     with:
       version: ${{ inputs.version || '' }}
       include_prereleases: ${{ inputs.include_prereleases || false }}
