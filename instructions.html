@@ -184,7 +184,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#submission-process" id="toc-submission-process" class="nav-link" data-scroll-target="#submission-process"><span class="header-section-number">6</span> Submission process</a>
   <ul class="collapse">
   <li><a href="#file-name" id="toc-file-name" class="nav-link" data-scroll-target="#file-name"><span class="header-section-number">6.1</span> File name</a></li>
-  <li><a href="#uploading-forecast" id="toc-uploading-forecast" class="nav-link" data-scroll-target="#uploading-forecast"><span class="header-section-number">6.2</span> Uploading forecast</a></li>
+  <li><a href="#submitting-a-forecast" id="toc-submitting-a-forecast" class="nav-link" data-scroll-target="#submitting-a-forecast"><span class="header-section-number">6.2</span> Submitting a forecast</a></li>
   </ul></li>
   <li><a href="#post-submission" id="toc-post-submission" class="nav-link" data-scroll-target="#post-submission"><span class="header-section-number">7</span> Post-submission</a>
   <ul class="collapse">
@@ -227,7 +227,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Register and describe your model in the challenge-model.yaml file in your GitHub repository (described below), or <a href="https://forms.gle/kg2Vkpho9BoMXSy57" class="uri">https://forms.gle/kg2Vkpho9BoMXSy57</a>. You are not required to register if your forecast submission uses the word “example” in your model_id. Any forecasts with “example” in the model_id will not be used in forecast evaluation analyses. Use <code>templatecast</code> as the challenge for which you are registering.</li>
 <li>Generate a forecast!</li>
 <li>Write the forecast output to a file that follows our standardized format (described below).</li>
-<li>Submit your forecast (described below).</li>
+<li>Submit your forecast by committing the file to your public GitHub repository (described below).</li>
 <li>Watch your forecast be evaluated as new data are collected.</li>
 </ol>
 </section>
@@ -321,15 +321,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The <code>theme_name</code> options are: lakes.</p>
 <p>The year, month, and day are the year, month, and day the reference_datetime (horizon = 0). For example, if a forecast starts today and tomorrow is the first forecasted day, horizon = 0 would be today and used in the file name. <code>model_id</code> is the id for the model name that you specified in the model registration (model_id has no spaces in it).</p>
 </section>
-<section id="uploading-forecast" class="level3" data-number="6.2">
-<h3 data-number="6.2" class="anchored" data-anchor-id="uploading-forecast"><span class="header-section-number">6.2</span> Uploading forecast</h3>
-<p>Individual forecast files can be uploaded at any time. The csv file can only contain one unique <code>model_id</code> and one unique <code>project_id</code>.</p>
+<section id="submitting-a-forecast" class="level3" data-number="6.2">
+<h3 data-number="6.2" class="anchored" data-anchor-id="submitting-a-forecast"><span class="header-section-number">6.2</span> Submitting a forecast</h3>
+<p>New forecast files can be added to your GitHub repository at any time. The csv file can only contain one unique <code>model_id</code> and one unique <code>project_id</code>.</p>
 <!-- Default submission instructions. They follow the config: the GitHub method
      when submissions$github$registry is set, the bucket unless
      submissions$use_bucket is false. Override with the challenge's own
      _content/instructions-submit.qmd, e.g. to describe a helper function. -->
-<section id="submit-from-a-github-repository" class="level4" data-number="6.2.1">
-<h4 data-number="6.2.1" class="anchored" data-anchor-id="submit-from-a-github-repository"><span class="header-section-number">6.2.1</span> Submit from a GitHub repository</h4>
 <p>Keep your forecasts in a <strong>public</strong> GitHub repository. Nothing needs to be uploaded: we read new files from the repository.</p>
 <ol type="1">
 <li>Put each forecast in a <code>forecasts/</code> folder, named <code>&lt;theme&gt;-&lt;YYYY-MM-DD&gt;-&lt;model_id&gt;.csv.gz</code>, for example <code>lakes-2026-01-01-my_model.csv.gz</code>.</li>
@@ -346,14 +344,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><a href="https://github.com/rqthomas/challenge-template/issues/new?template=register-forecast-repo.yml">Register your repository</a> by opening an issue and giving its address. A bot checks it and replies on the issue.</li>
 </ol>
 <p>Only the repository listed for a <code>model_id</code> can submit forecasts for it. A file is read the first time we see it, and later edits to it are ignored. We check each new file and publish the result, including the reason when a file is rejected, at <code>https://s3.us-east-005.backblazeb2.com/template-challenge/forecasts/submission_results/&lt;model_id&gt;.csv</code>.</p>
-</section>
+<p>See a complete, working example at <a href="https://github.com/rqthomas/challenge-template-example-submission">rqthomas/challenge-template-example-submission</a>.</p>
 </section>
 </section>
 <section id="post-submission" class="level2" data-number="7">
 <h2 data-number="7" class="anchored" data-anchor-id="post-submission"><span class="header-section-number">7</span> Post-submission</h2>
 <section id="processing" class="level3" data-number="7.1">
 <h3 data-number="7.1" class="anchored" data-anchor-id="processing"><span class="header-section-number">7.1</span> Processing</h3>
-<p>After submission, our servers will process uploaded files by converting them to a <a href="https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/rqthomas/challenge-template-catalog/main/forecasts/collection.json">parquet format</a> on our public s3 storage. A <code>pub_datetime</code> column will be added that denotes when a forecast was submitted. <a href="https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/rqthomas/challenge-template-catalog/main/summaries/collection.json">Summaries</a> are generated of the forecasts provide descriptive statistics of the forecast.</p>
+<p>After submission, our servers will process each new file by converting it to a <a href="https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/rqthomas/challenge-template-catalog/main/forecasts/collection.json">parquet format</a> on our public s3 storage. A <code>pub_datetime</code> column will be added that denotes when a forecast was submitted. <a href="https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/rqthomas/challenge-template-catalog/main/summaries/collection.json">Summaries</a> are generated of the forecasts provide descriptive statistics of the forecast.</p>
 </section>
 <section id="evaluation" class="level3" data-number="7.2">
 <h3 data-number="7.2" class="anchored" data-anchor-id="evaluation"><span class="header-section-number">7.2</span> Evaluation</h3>
