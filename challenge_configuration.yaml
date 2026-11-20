@@ -117,6 +117,8 @@ dashboard:
   contact_email: 'eco4cast.initiative@gmail.com'
   registration_form_url: 'https://forms.gle/kg2Vkpho9BoMXSy57'
   n_plot_sites: 2
+  # A working example submission, linked from the instructions.
+  example_submission_repo: rqthomas/challenge-template-example-submission
 
 # CATALOG --------------------------------------------------------------------
 catalog_config:
