@@ -19,11 +19,10 @@ challenge_url: https://projects.ecoforecast.org/challenge-template
 # participants download the targets and read the forecasts and scores without a
 # key, so make the bucket public (see "Going live" in README.md).
 endpoint: s3.us-east-005.backblazeb2.com
-# `false`: the engine reads the bucket with the key, so its stages work whether
-# or not the bucket is public. Backblaze B2 does not answer anonymous *list*
-# requests, which the engine's anonymous reads need, so keep this `false` on B2.
-# The bucket itself can still be public for downloads: participants fetch the
-# targets by URL. Set `true` only for a store that lets anyone list its buckets.
+# `true`: the engine reads the bucket anonymously, as participants do. Set
+# `false` to keep the bucket private (or if B2 refuses anonymous listing, see
+# "Going live" in README.md): the engine then reads with the key, and
+# participants cannot read the data without one.
 public_read: false
 forecasts_bucket: template-challenge/forecasts
 summaries_bucket: template-challenge/forecasts
