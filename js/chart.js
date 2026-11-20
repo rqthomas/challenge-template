@@ -41,9 +41,11 @@ function frame(width, height, margin) {
 // Forecast chart. `series`: [{ color, points: [{ x, m, l, u }] }] with x in days
 // from the reference time; `obs`: [{ x, y }] (negative x before it); `reference`
 // is the reference time in ms, for the date labels. `cursor` is a day (x) to
-// mark with a line and dots.
+// mark with a line and dots. With no series it is a chart of observations
+// (the targets page); `referenceLine: false` then drops the dashed line that
+// marks where a forecast starts.
 export function forecastChart({ series, obs = [], reference, cursor = null, label = 'Forecast chart',
-  width = 760, height = 330, xRange = null }) {
+  width = 760, height = 330, xRange = null, referenceLine = true }) {
   const f = frame(width, height, {});
   const xs = [...obs.map((o) => o.x), ...series.flatMap((s) => s.points.map((p) => p.x))];
   const xDomain = xRange || [Math.min(0, ...xs), Math.max(1, ...xs)];
@@ -61,12 +63,12 @@ export function forecastChart({ series, obs = [], reference, cursor = null, labe
       svg('text', { x: f.m.left - 6, y: Y(t) + 4, 'text-anchor': 'end' }, tickLabel(t)),
     );
   }
-  const span = xDomain[1] - xDomain[0];
-  const step = [1, 2, 5, 7, 10, 14, 30, 60, 90, 180].find((s) => span / s <= 7) || 365;
-  for (let d = Math.ceil(xDomain[0] / step) * step; d <= xDomain[1]; d += step) {
-    root.append(svg('text', { x: X(d), y: height - 8, 'text-anchor': 'middle' }, day(reference + d * MS_DAY)));
+  for (const tick of timeTicks(xDomain, reference)) {
+    root.append(svg('text', { x: X(tick.x), y: height - 8, 'text-anchor': 'middle' }, tick.label));
   }
-  root.append(svg('line', { class: 'ref', x1: X(0), x2: X(0), y1: f.m.top, y2: height - f.m.bottom }));
+  if (referenceLine) {
+    root.append(svg('line', { class: 'ref', x1: X(0), x2: X(0), y1: f.m.top, y2: height - f.m.bottom }));
+  }
 
   for (const s of series) {
     const pts = s.points.filter((p) => Number.isFinite(p.m));
@@ -84,7 +86,7 @@ export function forecastChart({ series, obs = [], reference, cursor = null, labe
       'stroke-width': 2.4, 'stroke-linejoin': 'round',
     }));
   }
-  for (const o of obs) root.append(svg('circle', { class: 'obs', cx: X(o.x), cy: Y(o.y), r: obs.length > 60 ? 2 : 3.2 }));
+  for (const o of obs) root.append(svg('circle', { class: 'obs', cx: X(o.x), cy: Y(o.y), r: obs.length > 500 ? 1.5 : obs.length > 60 ? 2 : 3.2 }));
 
   if (cursor !== null) {
     root.append(svg('line', { class: 'cursor', x1: X(cursor), x2: X(cursor), y1: f.m.top, y2: height - f.m.bottom }));
@@ -96,6 +98,30 @@ export function forecastChart({ series, obs = [], reference, cursor = null, labe
     }
   }
   return root;
+}
+
+// Labelled ticks for a time axis in days from `reference` (ms). Up to about a
+// year they are every few days and read "21 Nov"; longer spans (a record of
+// several years) sit on 1 January and read "2021", so labels never repeat.
+export function timeTicks(xDomain, reference) {
+  const span = xDomain[1] - xDomain[0];
+  if (span <= 400) {
+    const step = [1, 2, 5, 7, 10, 14, 30, 60, 90, 180].find((s) => span / s <= 7) || 365;
+    const ticks = [];
+    for (let d = Math.ceil(xDomain[0] / step) * step; d <= xDomain[1]; d += step) {
+      ticks.push({ x: d, label: day(reference + d * MS_DAY) });
+    }
+    return ticks;
+  }
+  const first = new Date(reference + xDomain[0] * MS_DAY).getUTCFullYear() + 1;
+  const last = new Date(reference + xDomain[1] * MS_DAY).getUTCFullYear();
+  const step = [1, 2, 5, 10, 20].find((s) => (last - first + 1) / s <= 8) || 50;
+  const ticks = [];
+  for (let year = Math.ceil(first / step) * step; year <= last; year += step) {
+    const x = (Date.UTC(year, 0, 1) - reference) / MS_DAY;
+    if (x >= xDomain[0] && x <= xDomain[1]) ticks.push({ x, label: String(year) });
+  }
+  return ticks;
 }
 
 // The point of a series closest to day `x`.

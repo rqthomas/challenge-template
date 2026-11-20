@@ -30,6 +30,7 @@ export const meta = () => load('data/meta.json');
 export const models = () => load('data/models.json');
 export const leaderboard = (variableId) => load(`data/leaderboard/${slug(variableId)}.json`, true);
 export const forecast = (variableId, site) => load(`data/forecasts/${slug(variableId)}__${slug(site)}.json`, true);
+export const targets = (variableId) => load(`data/targets/${slug(variableId)}.json`, true);
 export const model = (modelId) => load(`data/models/${slug(modelId)}.json`, true);
 export const resultsIndex = () => load('data/results/index.json', true);
 export const results = (name) => load(`data/results/${slug(name)}.json`, true);

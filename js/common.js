@@ -4,9 +4,9 @@
 import { h, mount, icon, ICONS } from './dom.js';
 import * as data from './data.js';
 
-// Runs `render(root, meta)` into #app, showing progress and failures.
-export async function boot(render) {
-  const root = document.getElementById('app');
+// Runs `render(root, meta)` into #app (or `target`), showing progress and failures.
+export async function boot(render, target) {
+  const root = target || document.getElementById('app');
   mount(root, h('div', { class: 'loading', role: 'status' }, 'Loading…'));
   try {
     const meta = await data.meta();

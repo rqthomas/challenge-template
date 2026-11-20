@@ -85,11 +85,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/leaflet-binding-2.2.3/leaflet.js"></script>
 <script src="site_libs/leaflet-providers-3.0.0/leaflet-providers.js"></script>
 <script src="site_libs/leaflet-providers-plugin-2.2.3/leaflet-providers-plugin.js"></script>
-<link href="site_libs/leaflet-markercluster-1.0.5/MarkerCluster.css" rel="stylesheet">
-<link href="site_libs/leaflet-markercluster-1.0.5/MarkerCluster.Default.css" rel="stylesheet">
-<script src="site_libs/leaflet-markercluster-1.0.5/leaflet.markercluster.js"></script>
-<script src="site_libs/leaflet-markercluster-1.0.5/leaflet.markercluster.freezable.js"></script>
-<script src="site_libs/leaflet-markercluster-1.0.5/leaflet.markercluster.layersupport.js"></script>
 
 
 <link rel="stylesheet" href="styles.css">
@@ -121,6 +116,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<div id="app">
+<noscript>
+The charts on this page need JavaScript.
+</noscript>
+</div>
+<script type="module">
+import { init } from "./js/pages/targets.js";
+init();
+</script>
 <h2 id="overview-forecast-the-targets">Overview: Forecast the targets!</h2>
 <p>The “targets” are time-series of data for use in model development and forecast evaluation. They are updated as new data are made available.</p>
 <p>The 1 targets are organised into 1 “themes”. The themes and links to the target files are included below.</p>
@@ -236,15 +240,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 </tbody>
 </table>
-<p>and the time series for the focal sites:</p>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure>
-<p><img src="targets_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
-</figure>
-</div>
-</div>
+<p>and the time series at the focal sites:</p>
+<div data-targets-group="Lakes">
+
 </div>
 </div>
 </div>
@@ -252,8 +250,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 id="explore-the-sites">Explore the sites</h2>
 <div class="cell">
 <div class="cell-output-display">
-<div class="leaflet html-widget html-fill-item" id="htmlwidget-f39db219baf159eba82a" style="width:100%;height:464px;"></div>
-<script type="application/json" data-for="htmlwidget-f39db219baf159eba82a">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"setView":[[37.308031,-79.82657649999999],2,[]],"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,"OSM",{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org/copyright/\">OpenStreetMap<\/a>,  <a href=\"https://opendatacommons.org/licenses/odbl/\">ODbL<\/a>"}]},{"method":"addProviderTiles","args":["Esri.WorldImagery",null,"Imagery",{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addProviderTiles","args":["Esri.WorldTopoMap",null,"Topo Map",{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addLayersControl","args":[["Imagery","OSM","Topo Map"],[],{"collapsed":true,"autoZIndex":true,"position":"topright"}]},{"method":"addMarkers","args":[[37.303153,37.312909],[-79.837217,-79.81593599999999],null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},["Falling Creek Reservoir (fcre)","Beaverdam Reservoir (bvre)"],null,{"showCoverageOnHover":true,"zoomToBoundsOnClick":true,"spiderfyOnMaxZoom":true,"removeOutsideVisibleBounds":true,"spiderLegPolylineOptions":{"weight":1.5,"color":"#222","opacity":0.5},"freezeAtZoom":false},null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[37.303153,37.312909],"lng":[-79.837217,-79.81593599999999]}},"evals":[],"jsHooks":[]}</script>
+<div class="leaflet html-widget html-fill-item" id="htmlwidget-76be0bf606626d0a3378" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-76be0bf606626d0a3378">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"fitBounds":[37.303153,-79.837217,37.312909,-79.81593599999999,{"maxZoom":13,"padding":[40,40]}],"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,"OSM",{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org/copyright/\">OpenStreetMap<\/a>,  <a href=\"https://opendatacommons.org/licenses/odbl/\">ODbL<\/a>"}]},{"method":"addProviderTiles","args":["Esri.WorldImagery",null,"Imagery",{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addProviderTiles","args":["Esri.WorldTopoMap",null,"Topo Map",{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addLayersControl","args":[["Imagery","OSM","Topo Map"],[],{"collapsed":true,"autoZIndex":true,"position":"topright"}]},{"method":"addMarkers","args":[[37.303153,37.312909],[-79.837217,-79.81593599999999],null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},["Falling Creek Reservoir (fcre)","Beaverdam Reservoir (bvre)"],null,null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[37.303153,37.312909],"lng":[-79.837217,-79.81593599999999]}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p><br> <br> The following table lists all the sites in the Example Forecasting Challenge. The columns with theme names say whether the site is in that theme’s target file.</p>
@@ -286,7 +284,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </main>
 <footer class="hub-footer"><div class="hub-footer-inner">
-<span>CC BY 4.0 · Contact: eco4cast.initiative@gmail.com</span>
+<span>CC BY 4.0 · Contact: rqthomas@vt.edu</span>
 <span><a href="https://github.com/rqthomas/challenge-template">Source on GitHub</a> · <span id="hub-updated"></span></span>
 </div></footer>
 <script id="quarto-html-after-body" type="application/javascript">
