@@ -14,7 +14,6 @@
 library(challengeci)
 
 cfg <- read_config()
-minioclient::install_mc()
 sites <- read_sites(cfg, "Lakes")
 
 # Download and clean ----------------------------------------------------------
