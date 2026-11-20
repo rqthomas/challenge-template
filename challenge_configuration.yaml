@@ -11,7 +11,7 @@ project_id: templatecast
 challenge_long_name: Example Forecasting Challenge
 # CHANGE: this repository, and where its dashboard is published (GitHub Pages).
 github_repo: rqthomas/challenge-template
-challenge_url: https://projects.ecoforecast.org/challenge-template
+challenge_url: https://rqthomas.github.io/challenge-template/
 
 # STORAGE --------------------------------------------------------------------
 # Everything lives in one Backblaze B2 bucket, `template-challenge`, through its
