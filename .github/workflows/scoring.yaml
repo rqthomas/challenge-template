@@ -24,7 +24,7 @@ concurrency:
 
 jobs:
   run:
-    uses: rqthomas/challenge-ci/.github/workflows/_scoring.yaml@v0.1.0-rc.7
+    uses: rqthomas/challenge-ci/.github/workflows/_scoring.yaml@v0.1.0-rc.8
     with:
       dry_run: ${{ inputs.dry_run || false }}
       since: ${{ inputs.since || '' }}
