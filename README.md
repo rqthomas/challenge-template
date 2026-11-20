@@ -110,7 +110,8 @@ What is left to do is on B2 and GitHub:
    The first must print `200`. The second shows whether anonymous *listing* works.
    Reading a folder of parquet files (`arrow::open_dataset()` on the bucket) needs
    listing, so if it is refused, see the note below before announcing the challenge.
-   (To keep the bucket private instead, set `public_read: false` in the config.)
+   The config sets `public_read: false`, so the engine itself reads with the key and does
+   not need anonymous listing; this check is about what *participants* can do.
 4. **Add the GitHub secrets** `OSN_KEY` (the key ID) and `OSN_SECRET` (the
    application key); the names are the engine's, whatever the store is. Scoring's
    scratch space is `template-challenge/tmp`, with the same key:
