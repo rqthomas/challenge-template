@@ -1,4 +1,7 @@
-Daily mean surface water temperature (°C) at three lakes: Lake Barco and Lake
-Suggs in Florida, and Crampton Lake in Wisconsin. The observations come from
-sensors on buoys operated by the U.S. National Ecological Observatory Network
-(NEON).
+Daily mean water temperature (°C) at two reservoirs in Virginia: Falling Creek
+Reservoir (`fcre`, sensor at 1.6 m) and Beaverdam Reservoir (`bvre`, sensor at
+1.5 m). The observations come from the Virginia Reservoirs LTREB project's
+high-frequency sensors, published as the in situ targets of the
+[VERA Forecasting Challenge](https://www.ltreb-reservoirs.org/vera4cast/). VERA
+measures temperature at many depths; this challenge forecasts one depth per
+reservoir.

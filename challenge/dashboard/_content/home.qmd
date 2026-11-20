@@ -6,7 +6,9 @@ We invite you to submit forecasts to the `r cfg$challenge_long_name`!
 
 This is an example challenge built from the
 [challenge template](https://github.com/eco4cast/challenge-template): it
-forecasts daily surface water temperature at three lakes.
+forecasts daily water temperature at two drinking-water reservoirs in Virginia.
+The observations are from the Virginia Reservoirs LTREB project's
+[VERA Forecasting Challenge](https://www.ltreb-reservoirs.org/vera4cast/).
 
 The [instructions](instructions.qmd) explain how to take part, and
 [what to forecast](targets.qmd) describes the targets.

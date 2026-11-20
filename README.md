@@ -6,8 +6,10 @@ a new challenge: press **Use this template**, name the new repository
 `<project_id>-challenge`, and follow the engine's
 [launch guide](https://github.com/eco4cast/challenge-ci/blob/main/docs/launching-a-new-challenge.md).
 
-The example challenge forecasts daily surface water temperature at three lakes
-(one target group, `Lakes`).
+The example challenge forecasts daily water temperature at two reservoirs, using the
+Virginia Reservoirs LTREB's public data from the
+[VERA Forecasting Challenge](https://www.ltreb-reservoirs.org/vera4cast/) (one target
+group, `Lakes`).
 
 ```
 challenge_configuration.yaml   every setting; values marked CHANGE are yours to set
@@ -41,11 +43,13 @@ Rscript -e 'challengeci::run_stage()' baselines daily
 Rscript -e 'challengeci::run_stage()' bundle forecasts
 Rscript -e 'challengeci::run_stage()' score
 Rscript -e 'challengeci::run_stage()' catalog
-Rscript -e 'challengeci::run_stage()' dashboard site   # then open site/index.html
+Rscript -e 'challengeci::run_stage()' dashboard site   # then: python3 -m http.server -d site
 ```
 
 Later stages read the targets the targets script wrote to `DRY_RUN_DIR`, so
-the whole pipeline runs before anything is published.
+the whole pipeline runs before anything is published. The dashboard's pages load
+their data with `fetch`, which browsers block for files opened directly, so serve
+`site/` (the command above) and open <http://localhost:8000>.
 
 ## How participants submit
 
@@ -127,7 +131,7 @@ organization may need to approve fine-grained tokens first.
 
 *Not needed here:* `EFI_NRP_KEY`/`EFI_NRP_SECRET` (scratch uses the B2 key),
 `AWS_ACCESS_KEY_SUBMISSIONS`/`AWS_SECRET_ACCESS_KEY_SUBMISSIONS` (there is no
-submissions bucket), `NEON_TOKEN` (the lake targets come from public data) and the
+submissions bucket), `NEON_TOKEN` (the water temperature targets come from VERA's public file) and the
 Docker Hub secrets (there is no image of its own).
 
 *Not tokens, but they must be right:*

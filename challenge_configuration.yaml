@@ -92,9 +92,9 @@ target_groups:
     max_horizon: [30]
     # Participants' file names start with the theme: lakes-2026-01-01-mymodel.csv
     theme: lakes
-    focal_sites: [BARC, CRAM]
-    thumbnail_link: 'https://www.neonscience.org/sites/default/files/styles/_edit_list_additional_actions_max_width_300/public/image-content-images/06092015-BarcoBuoy-400.jpg'
-    thumbnail_title: 'Lake buoy'
+    focal_sites: [fcre, bvre]
+    thumbnail_link: 'https://raw.githubusercontent.com/addelany/vera4cast/main/catalog/thumbnail_plots/fcr_catwalk.jpg'
+    thumbnail_title: 'Falling Creek Reservoir catwalk (VERA)'
     baselines:
       - {model_id: climatology, method: climatology, schedule: daily}
       - {model_id: persistenceRW, method: persistence_rw, schedule: daily}
@@ -131,9 +131,12 @@ catalog_config:
   documentation_url: 'https://rqthomas.github.io/challenge-template/'
   host_url: "https://ecoforecast.org/"
   host_name: "Ecological Forecasting Initiative"
-  citation_doi_link: "https://doi.org/10.1002/fee.2616"
-  citation_doi: "10.1002/fee.2616"
-  citation_text: "Thomas, R.Q., C. Boettiger, C.C. Carey, M.C. Dietze, L.R. Johnson, M.A. Kenney, J.S. Mclachlan, J.A. Peters, E.R. Sokol, J.F. Weltzin, A. Willson, W.M. Woelmer, and Challenge Contributors. 2023. The NEON Ecological Forecasting Challenge. Frontiers in Ecology and Environment 21: 112-113."
+  # The water temperature targets are the Virginia Reservoirs LTREB's, from the VERA
+  # Forecasting Challenge (https://www.ltreb-reservoirs.org/vera4cast/). CHANGE the
+  # three citation keys for your own data.
+  citation_doi_link: "https://doi.org/10.22541/essoar.15011733/v1"
+  citation_doi: "10.22541/essoar.15011733/v1"
+  citation_text: "Cayelan C. Carey, Adrienne Breef-Pilz, Austin D. Delany, et al. A real-time, automated ecological monitoring workflow and data publication program to enable daily ecosystem forecasting. ESS Open Archive. 05 November 2026. https://doi.org/10.22541/essoar.15011733/v1"
   forecast_path: 'challenge-template-catalog/forecasts'
   scores_path: 'challenge-template-catalog/scores'
   summaries_path: 'challenge-template-catalog/summaries'
