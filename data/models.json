@@ -1,0 +1,1 @@
+{"schema":1,"models":[{"model_id":"climatology","long_name":"Climatology","model_type":"Empirical","baseline":true,"variables":[]},{"model_id":"persistenceRW","long_name":"Persistence (random walk)","model_type":"Empirical","baseline":true,"variables":[]}]}

@@ -1,0 +1,2 @@
+group,variable,duration,max_horizon,targets_file,var_doi,var_citation,long_name,description,class,horizon,Latency,label,catalog_name,id
+Lakes,temperature,P1D,30,https://s3.us-east-005.backblazeb2.com/template-challenge/targets/project_id=templatecast/duration=P1D/lakes-targets.csv.gz,None,None,Water_temperature,Surface Mean Daily Water Temperature (Celsius),aquatics,30 days,~ 3 days,Daily,Daily_Water_temperature,temperature_P1D

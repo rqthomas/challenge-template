@@ -4,167 +4,55 @@
     "href": "targets.html",
     "title": "What to forecast",
     "section": "",
-    "text": "The “targets” are time-series of data for use in model development and forecast evaluation. They are updated as new data are made available.\nThe 1 targets are organised into 1 “themes”. The themes and links to the target files are included below."
+    "text": "Overview: Forecast the targets!\nThe “targets” are time-series of data for use in model development and forecast evaluation. They are updated as new data are made available.\nThe 1 targets are organised into 1 “themes”. The themes and links to the target files are included below.\nWhere to start\nIf you are just getting started, we recommend the following focal sites for each theme. The first site in the list is the recommended starting site.\n\nLakes: BARC, CRAM\n\nAs you develop your forecasting skills and want to expand to more sites, the targets are available at all 3 sites. You may also consider submitting forecasts to sites that match your interests. For example, a winter class may be more interested in forecasting southern sites than a summer class, which may focus on more northern sites.\nMore information about the sites can be found in the site metadata.\nExplore the targets and themes\nIn the tables,\n\n“duration” is the time-step of the variable, where P1D is a daily mean and P1W is a weekly total.\nthe “horizon” is how far ahead we want you to forecast.\nthe “latency” is the time between data collection and data availability in the target file.\n\n\nLakes\n\n\nDaily mean surface water temperature (°C) at three lakes: Lake Barco and Lake Suggs in Florida, and Crampton Lake in Wisconsin. The observations come from sensors on buoys operated by the U.S. National Ecological Observatory Network (NEON).\n\n\n\n\n\n\n\n\n\n\nvariable\nduration\ndescription\nhorizon\nlatency\n\n\n\n\ntemperature\nP1D\nSurface Mean Daily Water Temperature (Celsius)\n30 days\n~ 3 days\n\n\n\nThe target file is at the following URL. You can load it directly into R:\nurl &lt;- \"https://s3.us-east-005.backblazeb2.com/template-challenge/targets/project_id=templatecast/duration=P1D/lakes-targets.csv.gz\"\ntargets &lt;- readr::read_csv(url, show_col_types = FALSE)\nThe file contains the following columns:\n\n\n\nproject_id\nsite_id\ndatetime\nduration\nvariable\nobservation\n\n\n\n\ntemplatecast\nBARC\n2017-08-27\nP1D\ntemperature\n31.46711\n\n\ntemplatecast\nBARC\n2017-08-28\nP1D\ntemperature\n31.09979\n\n\ntemplatecast\nBARC\n2017-08-29\nP1D\ntemperature\n31.04028\n\n\ntemplatecast\nBARC\n2017-08-30\nP1D\ntemperature\n31.29690\n\n\ntemplatecast\nBARC\n2017-08-31\nP1D\ntemperature\n31.65641\n\n\ntemplatecast\nBARC\n2017-09-01\nP1D\ntemperature\n31.56785\n\n\n\nand the time series for the focal sites:\n\n\n\n\n\n\n\n\n\n\n\n\nExplore the sites\n\n\n\n\n\n\n  The following table lists all the sites in the Example Forecasting Challenge. The columns with theme names say whether the site is in that theme’s target file.\n\n\n\n\n\nsite_id\nsite_name\nLakes\n\n\n\n\nBARC\nLake Barco\nTRUE\n\n\nSUGG\nLake Suggs\nTRUE\n\n\nCRAM\nCrampton Lake\nTRUE"
   },
   {
-    "objectID": "targets.html#overview-forecast-the-targets",
-    "href": "targets.html#overview-forecast-the-targets",
-    "title": "What to forecast",
+    "objectID": "model.html",
+    "href": "model.html",
+    "title": "Example Forecasting Challenge",
     "section": "",
-    "text": "The “targets” are time-series of data for use in model development and forecast evaluation. They are updated as new data are made available.\nThe 1 targets are organised into 1 “themes”. The themes and links to the target files are included below."
-  },
-  {
-    "objectID": "targets.html#sec-starting-sites",
-    "href": "targets.html#sec-starting-sites",
-    "title": "What to forecast",
-    "section": "Where to start",
-    "text": "Where to start\nIf you are just getting started, we recommend the following focal sites for each theme. The first site in the list is the recommended starting site.\n\nLakes: BARC, CRAM\n\nAs you develop your forecasting skills and want to expand to more sites, the targets are available at all 3 sites. You may also consider submitting forecasts to sites that match your interests. For example, a winter class may be more interested in forecasting southern sites than a summer class, which may focus on more northern sites.\nMore information about the sites can be found in the site metadata."
-  },
-  {
-    "objectID": "targets.html#sec-targets",
-    "href": "targets.html#sec-targets",
-    "title": "What to forecast",
-    "section": "Explore the targets and themes",
-    "text": "Explore the targets and themes\nIn the tables,\n\n“duration” is the time-step of the variable, where P1D is a daily mean and P1W is a weekly total.\nthe “horizon” is how far ahead we want you to forecast.\nthe “latency” is the time between data collection and data availability in the target file.\n\n\nLakes\n\n\nDaily mean surface water temperature (°C) at three lakes: Lake Barco and Lake Suggs in Florida, and Crampton Lake in Wisconsin. The observations come from sensors on buoys operated by the U.S. National Ecological Observatory Network (NEON).\n\n\n\n\n\n\n\n\n\n\nvariable\nduration\ndescription\nhorizon\nlatency\n\n\n\n\ntemperature\nP1D\nSurface Mean Daily Water Temperature (Celsius)\n30 days\n~ 3 days\n\n\n\nThe target file is at the following URL. You can load it directly into R:\nurl &lt;- \"https://s3.us-east-005.backblazeb2.com/template-challenge/targets/project_id=templatecast/duration=P1D/lakes-targets.csv.gz\"\ntargets &lt;- readr::read_csv(url, show_col_types = FALSE)\nThe file contains the following columns:\n\n\n\nproject_id\nsite_id\ndatetime\nduration\nvariable\nobservation\n\n\n\n\ntemplatecast\nBARC\n2017-08-27\nP1D\ntemperature\n31.46711\n\n\ntemplatecast\nBARC\n2017-08-28\nP1D\ntemperature\n31.09979\n\n\ntemplatecast\nBARC\n2017-08-29\nP1D\ntemperature\n31.04028\n\n\ntemplatecast\nBARC\n2017-08-30\nP1D\ntemperature\n31.29690\n\n\ntemplatecast\nBARC\n2017-08-31\nP1D\ntemperature\n31.65641\n\n\ntemplatecast\nBARC\n2017-09-01\nP1D\ntemperature\n31.56785\n\n\n\nand the time series for the focal sites:"
-  },
-  {
-    "objectID": "targets.html#explore-the-sites",
-    "href": "targets.html#explore-the-sites",
-    "title": "What to forecast",
-    "section": "Explore the sites",
-    "text": "Explore the sites\n\n\n\n\n\n\n  The following table lists all the sites in the Example Forecasting Challenge. The columns with theme names say whether the site is in that theme’s target file.\n\n\n\n\n\nsite_id\nsite_name\nLakes\n\n\n\n\nBARC\nLake Barco\nTRUE\n\n\nSUGG\nLake Suggs\nTRUE\n\n\nCRAM\nCrampton Lake\nTRUE"
+    "text": "This page needs JavaScript to draw its charts and tables."
   },
   {
     "objectID": "instructions.html",
     "href": "instructions.html",
     "title": "How to forecast",
     "section": "",
-    "text": "We provide an overview of the steps for submitting with the details below:\n\nExplore the data (e.g., targets) and build your forecast model.\nRegister and describe your model in the challenge-model.yaml file in your GitHub repository (described below), or https://forms.gle/kg2Vkpho9BoMXSy57. You are not required to register if your forecast submission uses the word “example” in your model_id. Any forecasts with “example” in the model_id will not be used in forecast evaluation analyses. Use templatecast as the challenge for which you are registering.\nGenerate a forecast!\nWrite the forecast output to a file that follows our standardized format (described below).\nSubmit your forecast by committing the file to your public GitHub repository (described below).\nWatch your forecast be evaluated as new data are collected."
+    "text": "1 Overview: How to submit a forecast\nWe provide an overview of the steps for submitting with the details below:\n\nExplore the data (e.g., targets) and build your forecast model.\nRegister and describe your model in the challenge-model.yaml file in your GitHub repository (described below), or https://forms.gle/kg2Vkpho9BoMXSy57. You are not required to register if your forecast submission uses the word “example” in your model_id. Any forecasts with “example” in the model_id will not be used in forecast evaluation analyses. Use templatecast as the challenge for which you are registering.\nGenerate a forecast!\nWrite the forecast output to a file that follows our standardized format (described below).\nSubmit your forecast by committing the file to your public GitHub repository (described below).\nWatch your forecast be evaluated as new data are collected.\n\n2 Generating a forecast\n2.1 All forecasting approaches are welcome\nWe encourage you to use any modeling approach to predict the future conditions at any of the sites and variables.\n2.2 Must include uncertainty\nForecasts require you to assess the confidence in your prediction of the future. You can represent your confidence (i.e., uncertainty in the forecast) using a distribution or numerically using an ensemble (or sample) of predictions.\n2.3 Any model drivers/covariates/features are welcome\nYou can use any data as model inputs (including all target data available to date). You may want to use the updated target data to re-train a model or for use in data assimilation. As a genuine forecasting challenge, you will need forecasted drivers if your model uses drivers as inputs.\n\n2.4 Forecasts can be for a range of horizons\nHow far ahead you can forecast depends on the variable: the longest horizon is between 30 and 30 days. See the variable tables for the horizon associated with each variable.\n2.5 Forecasts can be submitted every day\nSince forecasts can be submitted every day, automation is essential.\n\nAny scheduler works; GitHub Actions is a common choice. The container image eco4cast/challenge-ci has the R packages the challenge itself uses.\n3 You can forecast at any of the sites\nIf you are just getting started, we recommend a set of focal sites for each of the 1 themes. You are also welcome to submit forecasts to all or a subset of the sites. More information about the sites can be found in the site metadata.\n4 Forecast file format\nThe file is a CSV format with the following columns:\n\nproject_id: use templatecast\nmodel_id: the short name of the model defined as the model_id in your registration. The model_id should have no spaces. model_id should reflect a method to forecast one or a set of target variables and must be unique to the templatecast challenge.\ndatetime: forecast timestamp. Format %Y-%m-%d %H:%M:%S with UTC as the time zone. Forecasts submitted with a %Y-%m-%d format will be converted to a full datetime assuming UTC mid-night.\nreference_datetime: The start of the forecast; this should be 0 times steps in the future. There should only be one value of reference_datetime in the file. Format is %Y-%m-%d %H:%M:%S with UTC as the time zone. Forecasts submitted with a %Y-%m-%d format will be converted to a full datetime assuming UTC mid-night.\nduration: the time-step of the forecast, e.g. P1D for a daily forecast and P1W for a weekly forecast. This value should match the duration of the target variable you are forecasting. Formatted as ISO 8601 duration\nsite_id: code for the site.\nfamily name of the probability distribution that is described by the parameter values in the parameter column (see list below for accepted distribution). An ensemble forecast as a family of ensemble. See note below about family.\nparameter the parameters for the distribution (see note below about the parameter column) or the number of the ensemble members. For example, the parameters for a normal distribution are called mu and sigma.\nvariable: standardized variable name. It must match the variable name in the target file.\nprediction: forecasted value for the parameter in the parameter column\n\n5 Representing uncertainty\nUncertainty is represented through the family-parameter columns in the file that you submit.\n5.0.1 Parameteric forecast\nFor a parametric forecast with a normal distribution, the family column would have the word normal to designate a normal distribution, and the parameter column must have values of mu and sigma for each forecasted variable, site_id, depth, and time combination.\nParameteric forecasts for binary variables should use bernoulli as the family and prob as the parameter.\nThe following names and parameterization of the distribution are currently supported (family: parameters):\n\nlognormal: mu, sigma\nnormal: mu,sigma\nbernoulli: prob\nbeta: shape1, shape2\nuniform: min, max\ngamma: shape, rate\nlogistic: location, scale\nexponential: rate\npoisson: lambda\n\nIf you are submitting a forecast that is not in the supported list, we recommend using the ensemble format and sampling from your distribution to generate a set of ensemble members that represents your forecast distribution.\n5.0.2 Ensemble (or sample) forecast\nEnsemble (or sample) forecasts use the family value of ensemble and the parameter values are the ensemble index.\nWhen forecasts using the ensemble family are scored, we assume that the ensemble is a set of equally likely realizations sampled from a distribution comparable to that of the observations (i.e., no broad adjustments are required to make the ensemble more consistent with observations). This is referred to as a “perfect ensemble” by Bröcker and Smith (2007). Ensemble (or sample) forecasts are transformed to a probability distribution function (e.g., dressed) using the default methods in the scoringRules R package (empirical version of the quantile decomposition for the crps).\n\n5.1 Example forecasts\nThe baseline forecasts the challenge submits every day are complete examples of the format; find them in the forecast catalog.\n6 Submission process\n6.1 File name\nSave your forecast as a CSV file with the following naming convention:\ntheme_name-year-month-day-model_id.csv. Compressed csv files with the csv.gz extension are also accepted.\nThe theme_name options are: lakes.\nThe year, month, and day are the year, month, and day the reference_datetime (horizon = 0). For example, if a forecast starts today and tomorrow is the first forecasted day, horizon = 0 would be today and used in the file name. model_id is the id for the model name that you specified in the model registration (model_id has no spaces in it).\n6.2 Submitting a forecast\nNew forecast files can be added to your GitHub repository at any time. The csv file can only contain one unique model_id and one unique project_id.\n\nKeep your forecasts in a public GitHub repository. Nothing needs to be uploaded: we read new files from the repository.\n\nPut each forecast in a forecasts/ folder, named &lt;theme&gt;-&lt;YYYY-MM-DD&gt;-&lt;model_id&gt;.csv.gz, for example lakes-2026-01-01-my_model.csv.gz.\nAdd a file named challenge-model.yaml at the top of the repository that says which models it submits for this challenge, and describes them (the questions of the registration form are the other keys, answered the same way; leave out any you do not want to answer):\n\nchallenge: templatecast\nmodels:\n  - model_id: my_model\n    path: forecasts/\n    long_name: My model\n    description: How my model works\n    model_type: process-based\n\nRegister your repository by opening an issue and giving its address. A bot checks it and replies on the issue.\n\nOnly the repository listed for a model_id can submit forecasts for it. A file is read the first time we see it, and later edits to it are ignored. We check each new file and publish the result, including the reason when a file is rejected, at https://s3.us-east-005.backblazeb2.com/template-challenge/forecasts/submission_results/&lt;model_id&gt;.csv.\nSee a complete, working example at rqthomas/challenge-template-example-submission.\n7 Post-submission\n7.1 Processing\nAfter submission, our servers will process each new file by converting it to a parquet format on our public s3 storage. A pub_datetime column will be added that denotes when a forecast was submitted. Summaries are generated of the forecasts provide descriptive statistics of the forecast.\n7.2 Evaluation\nAll forecasts are scored daily using new data until the full horizon of the forecast has been scored. Forecasts are scored using the crps function in the scoringRules R package. More information about the scoring metric can be found here.\n7.3 Comparison\nForecast performance can be compared to the performance of baseline models. We are automatically submitting the following baseline models:\n\nclimatology: the normal distribution (mean and standard deviation) of that day-of-year in the historical observations (Lakes)\npersistenceRW: a random walk model that assumes no change in the mean behavior, initialized using the most recent observation (Lakes)\n\nOur leaderboard and forecast explorer page includes evaluations of all submitted models.\n7.4 Catalog\nOur data page provides information and code for accessing the forecasts and scores.\n8 Questions?\nThanks for reading this document!\nIf you still have questions about how to submit your forecast to the Example Forecasting Challenge, we encourage you to email eco4cast.initiative@gmail.com."
   },
   {
-    "objectID": "instructions.html#overview-how-to-submit-a-forecast",
-    "href": "instructions.html#overview-how-to-submit-a-forecast",
-    "title": "How to forecast",
+    "objectID": "forecasts.html",
+    "href": "forecasts.html",
+    "title": "Example Forecasting Challenge",
     "section": "",
-    "text": "We provide an overview of the steps for submitting with the details below:\n\nExplore the data (e.g., targets) and build your forecast model.\nRegister and describe your model in the challenge-model.yaml file in your GitHub repository (described below), or https://forms.gle/kg2Vkpho9BoMXSy57. You are not required to register if your forecast submission uses the word “example” in your model_id. Any forecasts with “example” in the model_id will not be used in forecast evaluation analyses. Use templatecast as the challenge for which you are registering.\nGenerate a forecast!\nWrite the forecast output to a file that follows our standardized format (described below).\nSubmit your forecast by committing the file to your public GitHub repository (described below).\nWatch your forecast be evaluated as new data are collected."
+    "text": "This page needs JavaScript to draw its charts and tables."
   },
   {
-    "objectID": "instructions.html#generating-a-forecast",
-    "href": "instructions.html#generating-a-forecast",
-    "title": "How to forecast",
-    "section": "2 Generating a forecast",
-    "text": "2 Generating a forecast\n\n2.1 All forecasting approaches are welcome\nWe encourage you to use any modeling approach to predict the future conditions at any of the sites and variables.\n\n\n2.2 Must include uncertainty\nForecasts require you to assess the confidence in your prediction of the future. You can represent your confidence (i.e., uncertainty in the forecast) using a distribution or numerically using an ensemble (or sample) of predictions.\n\n\n2.3 Any model drivers/covariates/features are welcome\nYou can use any data as model inputs (including all target data available to date). You may want to use the updated target data to re-train a model or for use in data assimilation. As a genuine forecasting challenge, you will need forecasted drivers if your model uses drivers as inputs.\n\n\n\n2.4 Forecasts can be for a range of horizons\nHow far ahead you can forecast depends on the variable: the longest horizon is between 30 and 30 days. See the variable tables for the horizon associated with each variable.\n\n\n2.5 Forecasts can be submitted every day\nSince forecasts can be submitted every day, automation is essential.\n\nAny scheduler works; GitHub Actions is a common choice. The container image eco4cast/challenge-ci has the R packages the challenge itself uses."
-  },
-  {
-    "objectID": "instructions.html#you-can-forecast-at-any-of-the-sites",
-    "href": "instructions.html#you-can-forecast-at-any-of-the-sites",
-    "title": "How to forecast",
-    "section": "3 You can forecast at any of the sites",
-    "text": "3 You can forecast at any of the sites\nIf you are just getting started, we recommend a set of focal sites for each of the 1 themes. You are also welcome to submit forecasts to all or a subset of the sites. More information about the sites can be found in the site metadata."
-  },
-  {
-    "objectID": "instructions.html#forecast-file-format",
-    "href": "instructions.html#forecast-file-format",
-    "title": "How to forecast",
-    "section": "4 Forecast file format",
-    "text": "4 Forecast file format\nThe file is a CSV format with the following columns:\n\nproject_id: use templatecast\nmodel_id: the short name of the model defined as the model_id in your registration. The model_id should have no spaces. model_id should reflect a method to forecast one or a set of target variables and must be unique to the templatecast challenge.\ndatetime: forecast timestamp. Format %Y-%m-%d %H:%M:%S with UTC as the time zone. Forecasts submitted with a %Y-%m-%d format will be converted to a full datetime assuming UTC mid-night.\nreference_datetime: The start of the forecast; this should be 0 times steps in the future. There should only be one value of reference_datetime in the file. Format is %Y-%m-%d %H:%M:%S with UTC as the time zone. Forecasts submitted with a %Y-%m-%d format will be converted to a full datetime assuming UTC mid-night.\nduration: the time-step of the forecast, e.g. P1D for a daily forecast and P1W for a weekly forecast. This value should match the duration of the target variable you are forecasting. Formatted as ISO 8601 duration\nsite_id: code for the site.\nfamily name of the probability distribution that is described by the parameter values in the parameter column (see list below for accepted distribution). An ensemble forecast as a family of ensemble. See note below about family.\nparameter the parameters for the distribution (see note below about the parameter column) or the number of the ensemble members. For example, the parameters for a normal distribution are called mu and sigma.\nvariable: standardized variable name. It must match the variable name in the target file.\nprediction: forecasted value for the parameter in the parameter column"
-  },
-  {
-    "objectID": "instructions.html#representing-uncertainty",
-    "href": "instructions.html#representing-uncertainty",
-    "title": "How to forecast",
-    "section": "5 Representing uncertainty",
-    "text": "5 Representing uncertainty\nUncertainty is represented through the family-parameter columns in the file that you submit.\n\n5.0.1 Parameteric forecast\nFor a parametric forecast with a normal distribution, the family column would have the word normal to designate a normal distribution, and the parameter column must have values of mu and sigma for each forecasted variable, site_id, depth, and time combination.\nParameteric forecasts for binary variables should use bernoulli as the family and prob as the parameter.\nThe following names and parameterization of the distribution are currently supported (family: parameters):\n\nlognormal: mu, sigma\nnormal: mu,sigma\nbernoulli: prob\nbeta: shape1, shape2\nuniform: min, max\ngamma: shape, rate\nlogistic: location, scale\nexponential: rate\npoisson: lambda\n\nIf you are submitting a forecast that is not in the supported list, we recommend using the ensemble format and sampling from your distribution to generate a set of ensemble members that represents your forecast distribution.\n\n\n5.0.2 Ensemble (or sample) forecast\nEnsemble (or sample) forecasts use the family value of ensemble and the parameter values are the ensemble index.\nWhen forecasts using the ensemble family are scored, we assume that the ensemble is a set of equally likely realizations sampled from a distribution comparable to that of the observations (i.e., no broad adjustments are required to make the ensemble more consistent with observations). This is referred to as a “perfect ensemble” by Bröcker and Smith (2007). Ensemble (or sample) forecasts are transformed to a probability distribution function (e.g., dressed) using the default methods in the scoringRules R package (empirical version of the quantile decomposition for the crps).\n\n\n\n5.1 Example forecasts\nThe baseline forecasts the challenge submits every day are complete examples of the format; find them in the forecast catalog."
-  },
-  {
-    "objectID": "instructions.html#submission-process",
-    "href": "instructions.html#submission-process",
-    "title": "How to forecast",
-    "section": "6 Submission process",
-    "text": "6 Submission process\n\n6.1 File name\nSave your forecast as a CSV file with the following naming convention:\ntheme_name-year-month-day-model_id.csv. Compressed csv files with the csv.gz extension are also accepted.\nThe theme_name options are: lakes.\nThe year, month, and day are the year, month, and day the reference_datetime (horizon = 0). For example, if a forecast starts today and tomorrow is the first forecasted day, horizon = 0 would be today and used in the file name. model_id is the id for the model name that you specified in the model registration (model_id has no spaces in it).\n\n\n6.2 Submitting a forecast\nNew forecast files can be added to your GitHub repository at any time. The csv file can only contain one unique model_id and one unique project_id.\n\nKeep your forecasts in a public GitHub repository. Nothing needs to be uploaded: we read new files from the repository.\n\nPut each forecast in a forecasts/ folder, named &lt;theme&gt;-&lt;YYYY-MM-DD&gt;-&lt;model_id&gt;.csv.gz, for example lakes-2026-01-01-my_model.csv.gz.\nAdd a file named challenge-model.yaml at the top of the repository that says which models it submits for this challenge, and describes them (the questions of the registration form are the other keys, answered the same way; leave out any you do not want to answer):\n\nchallenge: templatecast\nmodels:\n  - model_id: my_model\n    path: forecasts/\n    long_name: My model\n    description: How my model works\n    model_type: process-based\n\nRegister your repository by opening an issue and giving its address. A bot checks it and replies on the issue.\n\nOnly the repository listed for a model_id can submit forecasts for it. A file is read the first time we see it, and later edits to it are ignored. We check each new file and publish the result, including the reason when a file is rejected, at https://s3.us-east-005.backblazeb2.com/template-challenge/forecasts/submission_results/&lt;model_id&gt;.csv.\nSee a complete, working example at rqthomas/challenge-template-example-submission."
-  },
-  {
-    "objectID": "instructions.html#post-submission",
-    "href": "instructions.html#post-submission",
-    "title": "How to forecast",
-    "section": "7 Post-submission",
-    "text": "7 Post-submission\n\n7.1 Processing\nAfter submission, our servers will process each new file by converting it to a parquet format on our public s3 storage. A pub_datetime column will be added that denotes when a forecast was submitted. Summaries are generated of the forecasts provide descriptive statistics of the forecast.\n\n\n7.2 Evaluation\nAll forecasts are scored daily using new data until the full horizon of the forecast has been scored. Forecasts are scored using the crps function in the scoringRules R package. More information about the scoring metric can be found here.\n\n\n7.3 Comparison\nForecast performance can be compared to the performance of baseline models. We are automatically submitting the following baseline models:\n\nclimatology: the normal distribution (mean and standard deviation) of that day-of-year in the historical observations (Lakes)\npersistenceRW: a random walk model that assumes no change in the mean behavior, initialized using the most recent observation (Lakes)\n\nOur forecast performance page includes evaluations of all submitted models.\n\n\n7.4 Catalog\nOur forecast catalog page provides information and code for accessing the forecasts and scores."
-  },
-  {
-    "objectID": "instructions.html#questions",
-    "href": "instructions.html#questions",
-    "title": "How to forecast",
-    "section": "8 Questions?",
-    "text": "8 Questions?\nThanks for reading this document!\nIf you still have questions about how to submit your forecast to the Example Forecasting Challenge, we encourage you to email eco4cast.initiative@gmail.com."
-  },
-  {
-    "objectID": "catalog.html",
-    "href": "catalog.html",
-    "title": "Forecast catalog",
+    "objectID": "data.html",
+    "href": "data.html",
+    "title": "Example Forecasting Challenge",
     "section": "",
-    "text": "The catalog of submitted forecasts, evaluations of the forecasts (“scores”), and summarized forecasts are available through the SpatioTemporal Asset Catalogs browser (below). The catalog also contains information and access to the metadata for the forecast sites, the NOAA weather forecasts at the forecast sites, and the targets (observational data) collected at the forecast sites. The full-page version can be found here"
-  },
-  {
-    "objectID": "catalog.html#what-types-of-models-are-submitting-forecasts",
-    "href": "catalog.html#what-types-of-models-are-submitting-forecasts",
-    "title": "Forecast catalog",
-    "section": "What types of models are submitting forecasts?",
-    "text": "What types of models are submitting forecasts?\nNote: This figure will become more complete as more models register and provide model descriptions"
-  },
-  {
-    "objectID": "catalog.html#sec-spatiotemporal-asset-catalog",
-    "href": "catalog.html#sec-spatiotemporal-asset-catalog",
-    "title": "Forecast catalog",
-    "section": "Catalog of forecast submissions and evaluations",
-    "text": "Catalog of forecast submissions and evaluations\nThe catalogs of submitted forecasts and forecast evaluations against observations (“scores”) are available through the SpatioTemporal Asset Catalogs browser (below). \nThe catalog provides the code that you can use to access forecasts and scores. \nA full-page version can be found here"
+    "text": "This page needs JavaScript to draw its charts and tables."
   },
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Forecasting Challenge",
+    "title": "Example Forecasting Challenge",
     "section": "",
-    "text": "We invite you to submit forecasts to the Example Forecasting Challenge!\nThis is an example challenge built from the challenge template: it forecasts daily surface water temperature at three lakes.\nThe instructions explain how to take part, and what to forecast describes the targets.\nTotal forecasts submitted to the templatecast Challenge\n4\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMost recent data for model training\n2026-10-31\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNumber of years of data for model training\n9.21\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNumber of variables being forecasted\n1"
+    "text": "This page needs JavaScript to draw its charts and tables.\n\n\n\n\n\nWe invite you to submit forecasts to the Example Forecasting Challenge!\nThis is an example challenge built from the challenge template: it forecasts daily surface water temperature at three lakes.\nThe instructions explain how to take part, and what to forecast describes the targets.\n\n\n\nContact\neco4cast.initiative@gmail.com\nCitation\nThomas, R.Q., C. Boettiger, C.C. Carey, M.C. Dietze, L.R. Johnson, M.A. Kenney, J.S. Mclachlan, J.A. Peters, E.R. Sokol, J.F. Weltzin, A. Willson, W.M. Woelmer, and Challenge Contributors. 2023. The NEON Ecological Forecasting Challenge. Frontiers in Ecology and Environment 21: 112-113."
   },
   {
-    "objectID": "index.html#contact",
-    "href": "index.html#contact",
-    "title": "Forecasting Challenge",
-    "section": "Contact",
-    "text": "Contact\neco4cast.initiative@gmail.com"
-  },
-  {
-    "objectID": "index.html#citation",
-    "href": "index.html#citation",
-    "title": "Forecasting Challenge",
-    "section": "Citation",
-    "text": "Citation\nThomas, R.Q., C. Boettiger, C.C. Carey, M.C. Dietze, L.R. Johnson, M.A. Kenney, J.S. Mclachlan, J.A. Peters, E.R. Sokol, J.F. Weltzin, A. Willson, W.M. Woelmer, and Challenge Contributors. 2023. The NEON Ecological Forecasting Challenge. Frontiers in Ecology and Environment 21: 112-113.\n  Page last updated on 2026-11-20"
-  },
-  {
-    "objectID": "performance.html",
-    "href": "performance.html",
-    "title": "Forecast performance",
+    "objectID": "leaderboard.html",
+    "href": "leaderboard.html",
+    "title": "Example Forecasting Challenge",
     "section": "",
-    "text": "This page visualizes the forecasts and forecast performance for the focal target variables. Only forecasts from a few focal sites are shown. If you want to see your forecasts or scores, the links can be found in our forecast catalog and scores catalog."
+    "text": "This page needs JavaScript to draw its charts and tables."
   },
   {
-    "objectID": "performance.html#sec-performance",
-    "href": "performance.html#sec-performance",
-    "title": "Forecast performance",
-    "section": "Most recent forecasts",
-    "text": "Most recent forecasts\nForecasts submitted on (none yet).\n\nLakes: Water temperature\n\n\nForecast summaries are available here.\n\n\nNo data are available yet."
-  },
-  {
-    "objectID": "performance.html#forecast-analysis",
-    "href": "performance.html#forecast-analysis",
-    "title": "Forecast performance",
-    "section": "Forecast analysis",
-    "text": "Forecast analysis\nBelow are forecasts submitted about 30 days ago (a year ago for weekly variables), with the observations used to evaluate them. Mouse over to see the model id, and scroll to zoom. Information on how to access the scores can be found in our catalog.\n\nLakes: Water temperature\n\n\n\n\nNo data are available yet."
-  },
-  {
-    "objectID": "performance.html#aggregated-scores",
-    "href": "performance.html#aggregated-scores",
-    "title": "Forecast performance",
-    "section": "Aggregated scores",
-    "text": "Aggregated scores\nAverage skill scores of each model across all sites, by model, by reference date and by forecast horizon (in days, up to 35).\nScores are averaged across all submissions made in the last 30 days for daily and sub-daily variables, and in the past year for weekly variables.\nLearn about the Continuous Ranked Probability Score here.\n\nLakes: Water temperature\n\n\n\n\nNo data are available yet."
+    "objectID": "participate.html",
+    "href": "participate.html",
+    "title": "Example Forecasting Challenge",
+    "section": "",
+    "text": "This page needs JavaScript to draw its charts and tables."
   }
 ]

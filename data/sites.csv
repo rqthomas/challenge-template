@@ -1,0 +1,4 @@
+site_id,site_name,latitude,longitude,Lakes
+BARC,Lake Barco,29.67598,-82.00841,TRUE
+SUGG,Lake Suggs,29.68778,-82.01775,TRUE
+CRAM,Crampton Lake,46.20967,-89.47369,TRUE
