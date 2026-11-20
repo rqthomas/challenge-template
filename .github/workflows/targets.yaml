@@ -5,7 +5,7 @@ name: target-generation
 on:
   # Off until the challenge is set up: uncomment to turn the schedule on
   # (step 12 of docs/launching-a-new-challenge.md in the engine).
-   schedule:
+  schedule:
     - cron: '0 7 * * *'
   workflow_dispatch:
     inputs:
