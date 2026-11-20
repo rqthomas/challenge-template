@@ -121,12 +121,12 @@ dashboard:
 # CATALOG --------------------------------------------------------------------
 catalog_config:
   # CHANGE: an empty repository the catalog workflow commits to.
-  catalog_repo: eco4cast/challenge-template-catalog
+  catalog_repo: rqthomas/challenge-template-catalog
   catalog_path: 'challenge-template-catalog'
   catalog_title: "Example Forecasting Challenge"
   about_string: 'https://projects.ecoforecast.org/challenge-template'
   about_title: 'Example Forecasting Challenge'
-  documentation_url: 'https://projects.ecoforecast.org/challenge-template'
+  documentation_url: 'https://rqthomas.github.io/challenge-template/'
   host_url: "https://ecoforecast.org/"
   host_name: "Ecological Forecasting Initiative"
   citation_doi_link: "https://doi.org/10.1002/fee.2616"
