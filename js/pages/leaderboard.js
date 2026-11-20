@@ -9,6 +9,14 @@ import { rankModels, trendValues } from '../board.js';
 import { sparkline } from '../chart.js';
 import { skill, num, integer, span } from '../fmt.js';
 
+// Why a leaderboard can be empty: forecasts are scored only once the observations
+// for the days they forecast have arrived.
+function noScores(meta) {
+  const { n_forecasts: forecasts, targets_end: lastObservation } = meta.stats;
+  const submitted = forecasts ? `${forecasts} forecast${forecasts === 1 ? ' has' : 's have'} been submitted. ` : '';
+  return `${submitted}Nothing has been scored for this variable yet: a forecast is scored once observations for the days it covers arrive. The most recent observation is from ${lastObservation}.`;
+}
+
 export function init() {
   boot(async (root, meta) => {
     const index = await data.models();
@@ -29,7 +37,7 @@ export function init() {
       writeState({ variable: state.variable, window: state.window, show: state.show });
       const board = await data.leaderboard(variable.id);
       mount(results, board && Object.keys(board.models).length
-        ? table(board, variable) : empty('No forecasts have been scored for this variable yet. Scores appear once the observations arrive.'));
+        ? table(board, variable) : empty(noScores(meta)));
     }
 
     function table(board, variable) {
