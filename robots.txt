@@ -1,0 +1,1 @@
+Sitemap: https://rqthomas.github.io/challenge-template/sitemap.xml
