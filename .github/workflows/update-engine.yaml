@@ -1,0 +1,33 @@
+# Trigger for the engine's update-engine workflow. Copy into .github/workflows/ of
+# a challenge repository; set the engine version after @.
+# Opens a pull request that moves every workflow to a newer engine release. Needs
+# the repository secret WORKFLOW_TOKEN (see the header of _update-engine.yaml).
+name: update-engine
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Engine version, e.g. 0.4.0 or 0.4.0-rc.1 (empty: the latest stable release)'
+        type: string
+        required: false
+        default: ''
+      include_prereleases:
+        description: 'With no version: take the newest release even if it is a release candidate'
+        type: boolean
+        default: false
+  # Off by default. Uncomment to check every Monday for a new stable release.
+  # schedule:
+  #   - cron: '0 9 * * 1'
+
+concurrency:
+  group: update-engine
+  cancel-in-progress: false
+
+jobs:
+  run:
+    uses: rqthomas/challenge-ci/.github/workflows/_update-engine.yaml@v0.1.0-rc.3
+    with:
+      version: ${{ inputs.version || '' }}
+      include_prereleases: ${{ inputs.include_prereleases || false }}
+    secrets: inherit

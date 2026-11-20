@@ -20,7 +20,12 @@ challenge/dashboard/           dashboard text (anything left out uses the engine
 ```
 
 Engine updates arrive by changing the version after `@` in
-`.github/workflows/*.yaml`; nothing in this repository needs merging.
+`.github/workflows/*.yaml`; nothing in this repository needs merging. The
+**update-engine** workflow does it for you: run it from the Actions tab with a version
+(or none, for the latest stable release) and it opens a pull request that moves every
+workflow. It needs a repository secret `WORKFLOW_TOKEN`; the engine's
+[operations guide](https://github.com/eco4cast/challenge-ci/blob/main/docs/operations.md#upgrading-the-engine)
+shows how to create it.
 
 ## Try it
 
