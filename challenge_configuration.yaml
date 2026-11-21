@@ -14,15 +14,17 @@ github_repo: rqthomas/challenge-template
 challenge_url: https://rqthomas.github.io/challenge-template/
 
 # STORAGE --------------------------------------------------------------------
-# Everything lives in one Backblaze B2 bucket, `template-challenge`, through its
-# S3-compatible API. The region (us-east-005) is read from the endpoint. The
-# participants download the targets and read the forecasts and scores without a
-# key, so make the bucket public (see "Going live" in README.md).
+# Everything lives in one private Backblaze B2 bucket, `template-challenge`,
+# through its S3-compatible API. The region (us-east-005) is read from the
+# endpoint. README.md ("Set up a free Backblaze B2 private bucket") shows how to
+# create your own bucket and the keys, and the `sed` command that changes the
+# bucket name and endpoint in this file.
 endpoint: s3.us-east-005.backblazeb2.com
-# `true`: the engine reads the bucket anonymously, as participants do. Set
-# `false` to keep the bucket private (or if B2 refuses anonymous listing, see
-# "Going live" in README.md): the engine then reads with the key, and
-# participants cannot read the data without one.
+# `false` (as here): the bucket is private. The engine reads it with the key, and
+# participants read the targets, forecasts and scores with a read-only key you
+# give them. `true`: the bucket is public and the engine reads it anonymously, as
+# participants do; B2 does not answer anonymous list requests, so that suits
+# single files better than folders of data (see the end of that README section).
 public_read: false
 forecasts_bucket: template-challenge/forecasts
 summaries_bucket: template-challenge/forecasts
@@ -122,8 +124,15 @@ dashboard:
 
 # CATALOG --------------------------------------------------------------------
 catalog_config:
-  # CHANGE: an empty repository the catalog workflow commits to.
-  catalog_repo: rqthomas/challenge-template-catalog
+  # The catalog workflow commits the catalog to the `catalog` branch of this
+  # repository (catalog_repo defaults to github_repo), which its first run creates;
+  # the built-in token pushes it, so there is no catalog repository and no
+  # CATALOG_TOKEN. For a large catalog, give it a repository of its own instead:
+  # set catalog_repo to it and leave out catalog_branch (see the engine's
+  # docs/launching-a-new-challenge.md, "The catalog").
+  catalog_branch: catalog
+  # The folder the branch is cloned into, next to this repository (only on the
+  # machine that runs the stage; its name does not matter, but keep it specific).
   catalog_path: 'challenge-template-catalog'
   catalog_title: "Example Forecasting Challenge"
   about_string: 'https://projects.ecoforecast.org/challenge-template'
@@ -143,4 +152,5 @@ catalog_config:
   targets_path: 'challenge-template-catalog/targets/'
   site_path: 'challenge-template-catalog/sites'
   site_type: 'MultiPoint'
-  bbox: {max_lat: 47, min_lat: 29, max_lon: -82, min_lon: -90}
+  # The catalog's spatial extent: the sites in sites.csv (the two Virginia reservoirs).
+  bbox: {max_lat: 37.32, min_lat: 37.30, max_lon: -79.81, min_lon: -79.84}
