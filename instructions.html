@@ -131,7 +131,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
      _content/instructions-automation.qmd. -->
 <p>Any scheduler works; GitHub Actions is a common choice. The container image <code>eco4cast/challenge-ci</code> has the R packages the challenge itself uses.</p>
 <h2 data-number="3" id="you-can-forecast-at-any-of-the-sites"><span class="header-section-number">3</span> You can forecast at any of the sites</h2>
-<p>If you are just getting started, we recommend a set of <a href="./targets.html#sec-starting-sites">focal sites</a> for each of the 1 themes. You are also welcome to submit forecasts to all or a subset of the sites. More information about the sites can be found in the <a href="https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/rqthomas/challenge-template-catalog/main/sites/collection.json">site metadata</a>.</p>
+<p>If you are just getting started, we recommend a set of <a href="./targets.html#sec-starting-sites">focal sites</a> for each of the 1 themes. You are also welcome to submit forecasts to all or a subset of the sites. More information about the sites can be found in the <a href="https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/rqthomas/challenge-template/main/sites/collection.json">site metadata</a>.</p>
 <h2 data-number="4" id="forecast-file-format"><span class="header-section-number">4</span> Forecast file format</h2>
 <p>The file is a CSV format with the following columns:</p>
 <ul>
@@ -170,7 +170,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- Default examples section. Override with the challenge's own
      _content/instructions-examples.qmd, e.g. to show real example files. -->
 <h3 data-number="5.1" id="example-forecasts"><span class="header-section-number">5.1</span> Example forecasts</h3>
-<p>The baseline forecasts the challenge submits every day are complete examples of the format; find them in the <a href="https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/rqthomas/challenge-template-catalog/main/forecasts/collection.json">forecast catalog</a>.</p>
+<p>The baseline forecasts the challenge submits every day are complete examples of the format; find them in the <a href="https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/rqthomas/challenge-template/main/forecasts/collection.json">forecast catalog</a>.</p>
 <h2 data-number="6" id="submission-process"><span class="header-section-number">6</span> Submission process</h2>
 <h3 data-number="6.1" id="file-name"><span class="header-section-number">6.1</span> File name</h3>
 <p>Save your forecast as a CSV file with the following naming convention:</p>
@@ -202,7 +202,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>See a complete, working example at <a href="https://github.com/rqthomas/challenge-template-example-submission">rqthomas/challenge-template-example-submission</a>.</p>
 <h2 data-number="7" id="post-submission"><span class="header-section-number">7</span> Post-submission</h2>
 <h3 data-number="7.1" id="processing"><span class="header-section-number">7.1</span> Processing</h3>
-<p>After submission, our servers will process each new file by converting it to a <a href="https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/rqthomas/challenge-template-catalog/main/forecasts/collection.json">parquet format</a> on our public s3 storage. A <code>pub_datetime</code> column will be added that denotes when a forecast was submitted. <a href="https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/rqthomas/challenge-template-catalog/main/summaries/collection.json">Summaries</a> are generated of the forecasts provide descriptive statistics of the forecast.</p>
+<p>After submission, our servers will process each new file by converting it to a <a href="https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/rqthomas/challenge-template/main/forecasts/collection.json">parquet format</a> on our public s3 storage. A <code>pub_datetime</code> column will be added that denotes when a forecast was submitted. <a href="https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/rqthomas/challenge-template/main/summaries/collection.json">Summaries</a> are generated of the forecasts provide descriptive statistics of the forecast.</p>
 <h3 data-number="7.2" id="evaluation"><span class="header-section-number">7.2</span> Evaluation</h3>
 <p>All forecasts are scored daily using new data until the full horizon of the forecast has been scored. Forecasts are scored using the <code>crps</code> function in the <a href="https://cran.r-project.org/web/packages/scoringRules/index.html"><code>scoringRules</code></a> R package. More information about the scoring metric can be found <a href="https://rqthomas.github.io/challenge-template/">here</a>.</p>
 <h3 data-number="7.3" id="comparison"><span class="header-section-number">7.3</span> Comparison</h3>
