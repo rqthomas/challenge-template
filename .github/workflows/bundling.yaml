@@ -20,7 +20,7 @@ concurrency:
 
 jobs:
   run:
-    uses: rqthomas/challenge-ci/.github/workflows/_bundling.yaml@v0.1.0-rc.10
+    uses: rqthomas/challenge-ci/.github/workflows/_bundling.yaml@v0.1.0-rc.11
     with:
       dry_run: ${{ inputs.dry_run || false }}
     secrets: inherit
