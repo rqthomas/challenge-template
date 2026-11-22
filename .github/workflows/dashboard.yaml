@@ -24,7 +24,7 @@ permissions:
 
 jobs:
   run:
-    uses: rqthomas/challenge-ci/.github/workflows/_dashboard.yaml@v0.1.0-rc.11
+    uses: rqthomas/challenge-ci/.github/workflows/_dashboard.yaml@v0.1.0-rc.12
     with:
       dry_run: ${{ inputs.dry_run || false }}
     secrets: inherit
