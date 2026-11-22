@@ -242,6 +242,14 @@ code, pre, kbd { font-family: var(--font-mono); font-size: 13px; }
 .numbered h2 { display: flex; align-items: center; gap: 12px; margin: 0 0 10px; font-size: 21px; font-weight: 600; }
 .numbered h2 .step-n { background: var(--accent); color: var(--on-accent); width: 30px; height: 30px; }
 
+/* Recent activity -------------------------------------------------------- */
+
+.feed-item { display: flex; gap: 12px; padding: 10px 0; border-top: 1px solid var(--line); }
+.feed-badge { flex: none; width: 24px; height: 24px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; }
+.feed-ok { background: var(--ok-soft); color: var(--ok); }
+.feed-bad { background: var(--bad-soft); color: var(--bad); }
+.feed-info { background: var(--accent-soft); color: var(--accent); }
+
 /* Leaderboard rows and tables ---------------------------------------------- */
 
 .rank-row { display: flex; align-items: center; gap: 14px; padding: 11px 12px; border-radius: 10px; text-decoration: none; color: var(--ink); }

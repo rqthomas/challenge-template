@@ -28,6 +28,7 @@ function load(path, optional) {
 
 export const meta = () => load('data/meta.json');
 export const models = () => load('data/models.json');
+export const activity = () => load('data/activity.json', true);
 export const leaderboard = (variableId) => load(`data/leaderboard/${slug(variableId)}.json`, true);
 export const forecast = (variableId, site) => load(`data/forecasts/${slug(variableId)}__${slug(site)}.json`, true);
 export const targets = (variableId) => load(`data/targets/${slug(variableId)}.json`, true);

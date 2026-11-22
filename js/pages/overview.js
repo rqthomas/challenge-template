@@ -1,12 +1,12 @@
 // Home page: what the challenge is, the latest forecast of the best model, the
 // state of play, how to take part, and the top of the leaderboard.
 
-import { h, mount, icon, ICONS } from '../dom.js';
+import { h, mount, svg, icon, ICONS } from '../dom.js';
 import * as data from '../data.js';
 import { boot, variableSelect, findVariable, chips, empty, variableLabel } from '../common.js';
 import { rankModels } from '../board.js';
 import { forecastChart } from '../chart.js';
-import { skill, num, integer, dayYear, MS_DAY } from '../fmt.js';
+import { skill, num, integer, dayYear, ago, MS_DAY } from '../fmt.js';
 
 export function init() {
   boot(async (root, meta) => {
@@ -76,6 +76,7 @@ export function init() {
           : empty('No model is ranked yet. Rankings appear when forecasts have been scored.'));
     }
 
+    const feed = await data.activity();
     const stats = meta.stats;
     const years = (Date.parse(stats.targets_end) - Date.parse(stats.targets_start)) / (365.25 * MS_DAY);
     const github = c.github_submissions;
@@ -108,14 +109,64 @@ export function init() {
           h('div', { class: 'step-head' }, h('span', { class: 'step-n' }, s.n), s.title), h('p', null, s.text))))),
       h('section', { class: 'row mt-lg' },
         h('div', { style: 'flex:3 1 520px;min-width:0' }, boardHost),
-        h('div', { class: 'card', style: 'flex:2 1 340px;min-width:0' },
-          h('h2', null, 'What to forecast'),
-          meta.variables.map((v) => h('div', { style: 'padding:10px 0;border-top:1px solid var(--line)' },
-            h('div', { style: 'font-weight:500' }, variableLabel(v)),
-            h('div', { class: 'small muted' }, `${v.group} · up to ${v.max_horizon} days ahead`))),
-          h('a', { href: 'targets.html', style: 'display:inline-block;margin-top:10px;font-weight:500;text-decoration:none' }, 'Targets and sites →'))));
+        h('div', { class: 'stack', style: 'flex:2 1 340px;min-width:0' },
+          h('div', { class: 'card' },
+            h('h2', null, 'Recent activity'),
+            feed?.events?.length ? shownEvents(feed.events).map(activityItem) : empty('Nothing has been submitted or scored yet.'),
+            meta.access.results_published
+              ? h('a', { href: 'participate.html#check', style: 'display:inline-block;margin-top:10px;font-size:14px;font-weight:500;text-decoration:none' }, 'Check your own submissions →')
+              : null),
+          h('div', { class: 'card' },
+            h('h2', null, 'What to forecast'),
+            meta.variables.map((v) => h('div', { style: 'padding:10px 0;border-top:1px solid var(--line)' },
+              h('div', { style: 'font-weight:500' }, variableLabel(v)),
+              h('div', { class: 'small muted' }, `${v.group} · up to ${v.max_horizon} days ahead`))),
+            h('a', { href: 'targets.html', style: 'display:inline-block;margin-top:10px;font-weight:500;text-decoration:none' }, 'Targets and sites →')))));
     await draw();
   });
+}
+
+// The newest five submissions and the scoring line (the oldest event, which a busy
+// feed would otherwise push out), newest first.
+function shownEvents(events) {
+  const scored = events.filter((e) => e.type === 'scored');
+  const others = events.filter((e) => e.type !== 'scored').slice(0, scored.length ? 5 : 6);
+  return [...others, ...scored].sort((a, b) => b.time.localeCompare(a.time));
+}
+
+// One line of the feed. Text only: model names and reasons come from the data files.
+function activityItem(event) {
+  const link = (id) => h('a', { href: `model.html#model=${encodeURIComponent(id)}`, style: 'font-weight:500' }, id);
+  const repo = event.source?.replace(/^github:/, '');
+  const who = event.model_id ? link(event.model_id) : (repo || 'A repository');
+  const name = event.file ? event.file.split('/').pop() : '';
+  const forecastDate = name.match(/\d{4}-\d{2}-\d{2}/)?.[0];
+  let text; let kind = 'ok'; let when = ago(event.time); let detail = null;
+  if (event.type === 'scored') {
+    text = ['Forecasts made on ', dayYear(Date.parse(event.date)), ' are now scored'];
+    kind = 'info';
+    when = 'Latest forecast date scored';
+  } else if (event.status === 'processed') {
+    text = [who, forecastDate ? ` forecast for ${dayYear(Date.parse(forecastDate))} processed` : ' forecast processed'];
+  } else if (event.status === 'registered') {
+    text = [who, ' joined the challenge'];
+    kind = 'info';
+  } else {
+    kind = 'bad';
+    text = [who, event.status === 'registration_invalid' ? ' registration refused' : `: ${name} refused`];
+    detail = event.reason;
+  }
+  const icon = kind === 'bad' ? 'M6 6l12 12M18 6L6 18' : 'M5 12.5l4.5 4.5L19 7.5';
+  return h('div', { class: 'feed-item' },
+    h('span', { class: `feed-badge feed-${kind}` }, svgIcon(icon)),
+    h('div', { style: 'min-width:0' },
+      h('div', { style: 'font-size:14px;overflow-wrap:anywhere' }, text),
+      detail ? h('div', { class: 'small', style: 'color:var(--bad);overflow-wrap:anywhere' }, detail) : null,
+      h('div', { class: 'small muted' }, when)));
+}
+
+function svgIcon(path) {
+  return svg('svg', { width: 14, height: 14, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', 'stroke-width': 2.5, 'stroke-linecap': 'round', 'stroke-linejoin': 'round', 'aria-hidden': 'true' }, svg('path', { d: path }));
 }
 
 function stat(label, value, note) {

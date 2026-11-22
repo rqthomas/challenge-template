@@ -108,10 +108,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>We provide an overview of the steps for submitting with the details below:</p>
 <ol type="1">
 <li>Explore the <a href="./targets.html#sec-targets">data</a> (e.g., targets) and build your forecast model.</li>
-<li>Register and describe your model in the challenge-model.yaml file in your GitHub repository (described below), or <a href="https://forms.gle/kg2Vkpho9BoMXSy57" class="uri">https://forms.gle/kg2Vkpho9BoMXSy57</a>. You are not required to register if your forecast submission uses the word “example” in your model_id. Any forecasts with “example” in the model_id will not be used in forecast evaluation analyses. Use <code>templatecast</code> as the challenge for which you are registering.</li>
+<li>Register and describe your model in the challenge-model.yaml file in your public git repository (described below), or <a href="https://forms.gle/kg2Vkpho9BoMXSy57" class="uri">https://forms.gle/kg2Vkpho9BoMXSy57</a>. You are not required to register if your forecast submission uses the word “example” in your model_id. Any forecasts with “example” in the model_id will not be used in forecast evaluation analyses. Use <code>templatecast</code> as the challenge for which you are registering.</li>
 <li>Generate a forecast!</li>
 <li>Write the forecast output to a file that follows our standardized format (described below).</li>
-<li>Submit your forecast by committing the file to your public GitHub repository (described below).</li>
+<li>Submit your forecast by committing the file to your public git repository (described below).</li>
 <li>Watch your forecast be evaluated as new data are collected.</li>
 </ol>
 <h2 data-number="2" id="generating-a-forecast"><span class="header-section-number">2</span> Generating a forecast</h2>
@@ -131,14 +131,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
      _content/instructions-automation.qmd. -->
 <p>Any scheduler works; GitHub Actions is a common choice. The container image <code>eco4cast/challenge-ci</code> has the R packages the challenge itself uses.</p>
 <h2 data-number="3" id="you-can-forecast-at-any-of-the-sites"><span class="header-section-number">3</span> You can forecast at any of the sites</h2>
-<p>If you are just getting started, we recommend a set of <a href="./targets.html#sec-starting-sites">focal sites</a> for each of the 1 themes. You are also welcome to submit forecasts to all or a subset of the sites. More information about the sites can be found in the <a href="https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/rqthomas/challenge-template/main/sites/collection.json">site metadata</a>.</p>
+<p>If you are just getting started, we recommend a set of <a href="./targets.html#sec-starting-sites">focal sites</a> for each of the 1 themes. You are also welcome to submit forecasts to all or a subset of the sites. More information about the sites can be found in the <a href="https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/rqthomas/challenge-template/catalog/sites/collection.json">site metadata</a>.</p>
 <h2 data-number="4" id="forecast-file-format"><span class="header-section-number">4</span> Forecast file format</h2>
 <p>The file is a CSV format with the following columns:</p>
 <ul>
-<li><p><code>project_id</code>: use <code>templatecast</code></p></li>
+<li><p><code>project_id</code> (optional): a label for the challenge a row is for. Leave it out, or use <code>templatecast</code>, for rows that belong in this challenge. Rows labelled for another challenge are not stored here.</p></li>
 <li><p><code>model_id</code>: the short name of the model defined as the model_id in your registration. The model_id should have no spaces. <code>model_id</code> should reflect a method to forecast one or a set of target variables and must be unique to the <code>templatecast</code> challenge.</p></li>
 <li><p><code>datetime</code>: forecast timestamp. Format <code>%Y-%m-%d %H:%M:%S</code> with UTC as the time zone. Forecasts submitted with a <code>%Y-%m-%d</code> format will be converted to a full datetime assuming UTC mid-night.</p></li>
-<li><p><code>reference_datetime</code>: The start of the forecast; this should be 0 times steps in the future. There should only be one value of <code>reference_datetime</code> in the file. Format is <code>%Y-%m-%d %H:%M:%S</code> with UTC as the time zone. Forecasts submitted with a <code>%Y-%m-%d</code> format will be converted to a full datetime assuming UTC mid-night.</p></li>
+<li><p><code>reference_datetime</code>: The start of the forecast; this should be 0 times steps in the future. A file may hold more than one reference datetime (for example to submit past forecasts), but for each model, reference datetime, variable and duration only the first forecast submitted is kept. Format is <code>%Y-%m-%d %H:%M:%S</code> with UTC as the time zone. Forecasts submitted with a <code>%Y-%m-%d</code> format will be converted to a full datetime assuming UTC mid-night.</p></li>
 <li><p><code>duration</code>: the time-step of the forecast, e.g.&nbsp;<code>P1D</code> for a daily forecast and <code>P1W</code> for a weekly forecast. This value should match the duration of the target variable you are forecasting. Formatted as <a href="https://en.wikipedia.org/wiki/ISO_8601#Durations">ISO 8601 duration</a></p></li>
 <li><p><code>site_id</code>: code for the site.</p></li>
 <li><p><code>family</code> name of the probability distribution that is described by the parameter values in the parameter column (see list below for accepted distribution). An ensemble forecast as a family of <code>ensemble</code>. See note below about family.</p></li>
@@ -170,22 +170,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- Default examples section. Override with the challenge's own
      _content/instructions-examples.qmd, e.g. to show real example files. -->
 <h3 data-number="5.1" id="example-forecasts"><span class="header-section-number">5.1</span> Example forecasts</h3>
-<p>The baseline forecasts the challenge submits every day are complete examples of the format; find them in the <a href="https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/rqthomas/challenge-template/main/forecasts/collection.json">forecast catalog</a>.</p>
+<p>The baseline forecasts the challenge submits every day are complete examples of the format; find them in the <a href="https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/rqthomas/challenge-template/catalog/forecasts/collection.json">forecast catalog</a>.</p>
 <h2 data-number="6" id="submission-process"><span class="header-section-number">6</span> Submission process</h2>
 <h3 data-number="6.1" id="file-name"><span class="header-section-number">6.1</span> File name</h3>
-<p>Save your forecast as a CSV file with the following naming convention:</p>
-<p><code>theme_name-year-month-day-model_id.csv</code>. Compressed csv files with the csv.gz extension are also accepted.</p>
-<p>The <code>theme_name</code> options are: lakes.</p>
-<p>The year, month, and day are the year, month, and day the reference_datetime (horizon = 0). For example, if a forecast starts today and tomorrow is the first forecasted day, horizon = 0 would be today and used in the file name. <code>model_id</code> is the id for the model name that you specified in the model registration (model_id has no spaces in it).</p>
+<p>Save your forecast as a CSV file (compressed files with the csv.gz extension are also accepted).</p>
+<p>A forecast committed to a git repository can have any file name: we identify it by the model_id and reference_datetime columns inside it, so one file can hold several variables and be used for several challenges.</p>
+<p><code>model_id</code> is the id for the model name that you specified in the model registration (model_id has no spaces in it).</p>
 <h3 data-number="6.2" id="submitting-a-forecast"><span class="header-section-number">6.2</span> Submitting a forecast</h3>
-<p>New forecast files can be added to your GitHub repository at any time. The csv file can only contain one unique <code>model_id</code> and one unique <code>project_id</code>.</p>
-<!-- Default submission instructions. They follow the config: the GitHub method
-     when submissions$github$registry is set, the bucket unless
+<p>New forecast files can be added to your git repository at any time. The csv file can only contain one unique <code>model_id</code>. One file can hold several variables, and the same file can be used for several challenges: each keeps only the rows with its own variables, durations and sites.</p>
+<!-- Default submission instructions. They follow the config: the repository method
+     when submissions$repos$registry is set, the bucket unless
      submissions$use_bucket is false. Override with the challenge's own
      _content/instructions-submit.qmd, e.g. to describe a helper function. -->
-<p>Keep your forecasts in a <strong>public</strong> GitHub repository. Nothing needs to be uploaded: we read new files from the repository.</p>
+<p>Every model has a <strong>public</strong> repository, on GitHub, GitLab, Bitbucket or Codeberg, that describes it. Nothing needs to be uploaded: we read new forecast files from the repository.</p>
 <ol type="1">
-<li>Put each forecast in a <code>forecasts/</code> folder, named <code>&lt;theme&gt;-&lt;YYYY-MM-DD&gt;-&lt;model_id&gt;.csv.gz</code>, for example <code>lakes-2026-01-01-my_model.csv.gz</code>.</li>
 <li>Add a file named <code>challenge-model.yaml</code> at the top of the repository that says which models it submits for this challenge, and describes them (the questions of the <a href="https://forms.gle/kg2Vkpho9BoMXSy57">registration form</a> are the other keys, answered the same way; leave out any you do not want to answer):</li>
 </ol>
 <div class="sourceCode" id="cb1"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">challenge</span><span class="kw">:</span><span class="at"> templatecast</span></span>
@@ -195,14 +193,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">long_name</span><span class="kw">:</span><span class="at"> My model</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">description</span><span class="kw">:</span><span class="at"> How my model works</span></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">model_type</span><span class="kw">:</span><span class="at"> process-based</span></span></code></pre></div>
-<ol start="3" type="1">
-<li><a href="https://github.com/rqthomas/challenge-template/issues/new?template=register-forecast-repo.yml">Register your repository</a> by opening an issue and giving its address. A bot checks it and replies on the issue.</li>
+<ol start="2" type="1">
+<li>Commit each forecast to the <code>forecasts/</code> folder as a <code>.csv</code> or <code>.csv.gz</code> file. <strong>The file name does not matter</strong>: we read the <code>model_id</code> and <code>reference_datetime</code> columns in the file, so one file can hold several variables, and the same file can go to every challenge that lists your model. Each challenge keeps only the rows that belong to it, those with its variables, durations and sites, and tells you how many it dropped.</li>
+<li><a href="https://github.com/rqthomas/challenge-template/issues/new?template=register-forecast-repo.yml">Register your repository</a> by opening an issue, giving its address and saying where your forecasts go. A bot checks it and replies on the issue.</li>
 </ol>
-<p>Only the repository listed for a <code>model_id</code> can submit forecasts for it. A file is read the first time we see it, and later edits to it are ignored. We check each new file and publish the result, including the reason when a file is rejected, at <code>https://s3.us-east-005.backblazeb2.com/template-challenge/forecasts/submission_results/&lt;model_id&gt;.csv</code>.</p>
+<p>A forecast needs the columns <code>model_id</code>, <code>reference_datetime</code>, <code>datetime</code>, <code>site_id</code>, <code>variable</code>, <code>duration</code>, <code>family</code>, <code>parameter</code> and <code>prediction</code>. An optional <code>project_id</code> column labels the challenge a row is for; leave it out for rows meant for every challenge that lists your model. If a forecast for the same model, reference date, variable and duration is already stored, the first one is kept and the repeated rows are dropped. A file is read the first time we see it, and later edits to it are ignored. We check each new file and publish the result, including the reason when a file is rejected, at <code>https://s3.us-east-005.backblazeb2.com/template-challenge/forecasts/submission_results/&lt;model_id&gt;.csv</code>.</p>
 <p>See a complete, working example at <a href="https://github.com/rqthomas/challenge-template-example-submission">rqthomas/challenge-template-example-submission</a>.</p>
 <h2 data-number="7" id="post-submission"><span class="header-section-number">7</span> Post-submission</h2>
 <h3 data-number="7.1" id="processing"><span class="header-section-number">7.1</span> Processing</h3>
-<p>After submission, our servers will process each new file by converting it to a <a href="https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/rqthomas/challenge-template/main/forecasts/collection.json">parquet format</a> on our public s3 storage. A <code>pub_datetime</code> column will be added that denotes when a forecast was submitted. <a href="https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/rqthomas/challenge-template/main/summaries/collection.json">Summaries</a> are generated of the forecasts provide descriptive statistics of the forecast.</p>
+<p>After submission, our servers will process each new file by converting it to a <a href="https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/rqthomas/challenge-template/catalog/forecasts/collection.json">parquet format</a> on our public s3 storage. A <code>pub_datetime</code> column will be added that denotes when a forecast was submitted. <a href="https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/rqthomas/challenge-template/catalog/summaries/collection.json">Summaries</a> are generated of the forecasts provide descriptive statistics of the forecast.</p>
 <h3 data-number="7.2" id="evaluation"><span class="header-section-number">7.2</span> Evaluation</h3>
 <p>All forecasts are scored daily using new data until the full horizon of the forecast has been scored. Forecasts are scored using the <code>crps</code> function in the <a href="https://cran.r-project.org/web/packages/scoringRules/index.html"><code>scoringRules</code></a> R package. More information about the scoring metric can be found <a href="https://rqthomas.github.io/challenge-template/">here</a>.</p>
 <h3 data-number="7.3" id="comparison"><span class="header-section-number">7.3</span> Comparison</h3>
