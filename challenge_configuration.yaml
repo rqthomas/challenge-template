@@ -47,19 +47,24 @@ credentials:
   scratch: {key_env: S3_ACCESS_KEY_ID, secret_env: S3_SECRET_ACCESS_KEY}
 
 # SUBMISSIONS ----------------------------------------------------------------
-# Participants submit from their own public GitHub repositories: the CI reads
-# new forecast files from every repository listed in the registry. Nothing is
-# uploaded, so there is no submissions bucket and no key to hand out. A
-# repository describes its models in `challenge-model.yaml`; see "Submissions
-# from GitHub repositories" in the engine's docs/operations.md.
+# Participants submit from their own public git repositories (GitHub, GitLab,
+# Bitbucket or Codeberg): the CI reads new forecast files from every repository
+# listed in the registry. Nothing is uploaded, so there is no submissions bucket
+# and no key to hand out. A repository describes its models in
+# `challenge-model.yaml`; see "Submissions from git repositories" in the
+# engine's docs/operations.md.
 submissions:
-  github:
-    # CSV of the repositories to read (`repo,repo_id,registered`): a row per
-    # repository, added by the registration bot (or by hand).
+  repos:
+    # CSV of the repositories to read (`repo,location,registered`): a row per
+    # repository, added by the registration bot (or by hand). `location` is
+    # `repo` (forecasts are read from the repository) or `bucket`.
     registry: registry/forecast_repos.csv
     # Participants register by opening the issue form in
     # .github/ISSUE_TEMPLATE; a bot adds the repository to the registry.
     issue_registration: true
+    # Hosts a participant's repository may be on (these are the defaults; add a
+    # self-hosted server here).
+    # allowed_hosts: [github.com, gitlab.com, bitbucket.org, codeberg.org]
   # Do not read a submissions bucket. To also accept uploads to one, remove
   # this line and set `submissions_endpoint`, `submissions_bucket` and
   # `credentials: {submissions: ...}` (see the engine's docs/configuration.md).

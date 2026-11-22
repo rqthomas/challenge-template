@@ -1,21 +1,23 @@
 # Issue form for registering a forecast repository. Copy into
 # .github/ISSUE_TEMPLATE/ of a challenge repository, with the register trigger
 # workflow (inst/workflows/register.yaml). The label must stay `register-repo`:
-# the workflow only runs on issues that have it. The answer must stay under a
-# heading called "Repository" (the form field's label).
-name: Register a forecast repository
-description: Ask the challenge to read your forecasts from a public GitHub repository.
-title: "Register forecast repository"
+# the workflow only runs on issues that have it. The answers must stay under
+# headings called "Repository" and "Forecast files" (the form fields' labels).
+name: Register a model repository
+description: Register the public repository that describes your model, and say where your forecasts go.
+title: "Register model repository"
 labels: ["register-repo"]
 body:
   - type: markdown
     attributes:
       value: |
-        Before you register, your repository must be **public** and contain
-        - forecast files in a folder such as `forecasts/`, named
-          `<theme>-<YYYY-MM-DD>-<model_id>.csv.gz`, and
-        - a `challenge-model.yaml` at the top of the repository that names this
-          challenge, your `model_id` and your model's metadata.
+        Every model needs a **public** repository (GitHub, GitLab, Bitbucket or
+        Codeberg) with a `challenge-model.yaml` at the top that names this
+        challenge, your `model_id` and your model's metadata.
+
+        Your forecasts can be read from the repository (commit `.csv` or `.csv.gz`
+        files to the folder named in `challenge-model.yaml`, such as `forecasts/`;
+        file names are free) or sent to the challenge's submissions bucket.
 
         A bot checks the repository and replies here within a few minutes. If it finds a
         problem, fix it and edit this issue to try again.
@@ -23,7 +25,18 @@ body:
     id: repository
     attributes:
       label: Repository
-      description: The repository's address, as `owner/name` or `https://github.com/owner/name`.
+      description: The repository's address, as `owner/name` (GitHub) or `https://host/owner/name`.
       placeholder: your-account/your-forecasts
+    validations:
+      required: true
+  - type: dropdown
+    id: forecast_files
+    attributes:
+      label: Forecast files
+      description: Where do your forecasts go?
+      options:
+        - In my repository
+        - In the submissions bucket
+      default: 0
     validations:
       required: true

@@ -15,7 +15,7 @@ group, `Lakes`).
 challenge_configuration.yaml   every setting; values marked CHANGE are yours to set
 sites.csv                      the sites, and which target group each is in
 challenge/targets/             one targets script per target group
-registry/forecast_repos.csv    the participants' GitHub repositories the CI reads forecasts from
+registry/forecast_repos.csv    the participants' git repositories the CI reads forecasts from
 .github/ISSUE_TEMPLATE/        the issue form participants use to register a repository
 challenge/dashboard/           dashboard text (anything left out uses the engine's default)
 .github/workflows/             triggers that run the engine's workflows
@@ -55,14 +55,12 @@ their data with `fetch`, which browsers block for files opened directly, so serv
 
 ## How participants submit
 
-Participants keep their forecasts in a **public GitHub repository**; the
-`submissions` stage reads new files from every repository listed in
-`registry/forecast_repos.csv`. There is no submissions bucket and no key to hand
-out. A participant
+Participants keep a **public git repository** (GitHub, GitLab, Bitbucket or
+Codeberg); the `submissions` stage reads new forecast files from every
+repository listed in `registry/forecast_repos.csv`. There is no submissions
+bucket and no key to hand out. A participant
 
-1. puts forecasts in `forecasts/`, named `<theme>-<YYYY-MM-DD>-<model_id>.csv.gz`
-   (here `lakes-2026-01-01-my_model.csv.gz`);
-2. adds `challenge-model.yaml` at the repository root. It names the challenge
+1. adds `challenge-model.yaml` at the repository root. It names the challenge
    and the model, and gives the model's metadata (the questions of the
    registration form, answered the same way); the catalog's model records are
    built from it:
@@ -78,24 +76,31 @@ out. A participant
        dynamic: true
    ```
 
-3. opens the **Register a forecast repository** issue form (it is in
-   `.github/ISSUE_TEMPLATE/`) with the repository's address. The
-   `register-forecast-repo` workflow checks the repository, adds a row to
-   `registry/forecast_repos.csv`, replies on the issue and closes it. A model id
-   already registered through the form is held for you to confirm
+2. commits forecasts to `forecasts/` as `.csv` or `.csv.gz` files. **File names
+   are free**: a forecast is identified by its `model_id` and `reference_datetime`
+   columns, one file can hold several variables, and one file can serve several
+   challenges (each keeps only the rows with its own variables, durations and
+   sites). Every row needs `duration` as well as `site_id` and `variable`;
+3. opens the **Register a model repository** issue form (it is in
+   `.github/ISSUE_TEMPLATE/`) with the repository's address and where the
+   forecasts go. The `register-forecast-repo` workflow checks the repository, adds
+   a row to `registry/forecast_repos.csv`, replies on the issue and closes it. A
+   model id already registered through the form is held for you to confirm
    (label `needs-review`: check the repository is its owner's, then add the row
-   yourself). You can also add rows by hand (`repo,repo_id,registered`; get the id
-   with `gh api repos/<owner>/<name> --jq .id`).
+   yourself). You can also add rows by hand (`repo,location,registered`, with
+   `repo` as `owner/name` for GitHub or `https://gitlab.com/owner/name`).
 
-What happened to each file, with the reason for any rejection, is published to
-`<forecasts_bucket>/submission_results/<model_id>.csv`. The challenge's own
-baseline models are written straight to the forecasts bucket
+What happened to each file, with the reason for any rejection and how many rows
+were kept, is published to `<forecasts_bucket>/submission_results/<model_id>.csv`.
+The challenge's own baseline models are written straight to the forecasts bucket
 (`submissions$baselines_destination`), so the CI needs only the main store's key.
 To accept uploads to a bucket as well, see the comments under `submissions:` in
-the config. The details are in the engine's
-[operations guide](https://github.com/eco4cast/challenge-ci/blob/main/docs/operations.md#submissions-from-github-repositories).
+the config (a model's registry `location` is then `bucket`, and
+`submissions$bucket$strict_from` sets the date old-format files stop being
+accepted). The details are in the engine's
+[operations guide](https://github.com/eco4cast/challenge-ci/blob/main/docs/operations.md#submissions-from-git-repositories).
 
-This needs an engine release with GitHub submissions: set the version after `@`
+This needs an engine release with git-repository submissions: set the version after `@`
 in `.github/workflows/*.yaml` to one that has it.
 
 As shipped, the config points at the Backblaze B2 bucket `template-challenge`
