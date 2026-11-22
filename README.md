@@ -55,8 +55,8 @@ their data with `fetch`, which browsers block for files opened directly, so serv
 
 ## How participants submit
 
-Participants keep a **public git repository** (GitHub, GitLab, Bitbucket or
-Codeberg); the `submissions` stage reads new forecast files from every
+Participants keep a **public git repository** (GitHub, GitLab, Bitbucket,
+Codeberg or Hugging Face); the `submissions` stage reads new forecast files from every
 repository listed in `registry/forecast_repos.csv`. There is no submissions
 bucket and no key to hand out. A participant
 

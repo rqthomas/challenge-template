@@ -11,8 +11,8 @@ body:
   - type: markdown
     attributes:
       value: |
-        Every model needs a **public** repository (GitHub, GitLab, Bitbucket or
-        Codeberg) with a `challenge-model.yaml` at the top that names this
+        Every model needs a **public** repository (GitHub, GitLab, Bitbucket,
+        Codeberg or Hugging Face) with a `challenge-model.yaml` at the top that names this
         challenge, your `model_id` and your model's metadata.
 
         Your forecasts can be read from the repository (commit `.csv` or `.csv.gz`
@@ -25,7 +25,7 @@ body:
     id: repository
     attributes:
       label: Repository
-      description: The repository's address, as `owner/name` (GitHub) or `https://host/owner/name`.
+      description: The repository's address, as `owner/name` (GitHub) or `https://host/owner/name`, such as `https://huggingface.co/datasets/owner/name`.
       placeholder: your-account/your-forecasts
     validations:
       required: true

@@ -48,7 +48,7 @@ credentials:
 
 # SUBMISSIONS ----------------------------------------------------------------
 # Participants submit from their own public git repositories (GitHub, GitLab,
-# Bitbucket or Codeberg): the CI reads new forecast files from every repository
+# Bitbucket, Codeberg or Hugging Face): the CI reads new forecast files from every repository
 # listed in the registry. Nothing is uploaded, so there is no submissions bucket
 # and no key to hand out. A repository describes its models in
 # `challenge-model.yaml`; see "Submissions from git repositories" in the
@@ -64,7 +64,7 @@ submissions:
     issue_registration: true
     # Hosts a participant's repository may be on (these are the defaults; add a
     # self-hosted server here).
-    # allowed_hosts: [github.com, gitlab.com, bitbucket.org, codeberg.org]
+    # allowed_hosts: [github.com, gitlab.com, bitbucket.org, codeberg.org, huggingface.co]
   # Do not read a submissions bucket. To also accept uploads to one, remove
   # this line and set `submissions_endpoint`, `submissions_bucket` and
   # `credentials: {submissions: ...}` (see the engine's docs/configuration.md).
