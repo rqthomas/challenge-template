@@ -124,6 +124,8 @@ dashboard:
   contact_email: 'rqthomas@vt.edu'
   registration_form_url: 'https://forms.gle/kg2Vkpho9BoMXSy57'
   n_plot_sites: 2
+  # The leaderboard's "Horizon" toggle: all horizons, or one of these lead times (days).
+  horizons: [1, 7]
   # A working example submission, linked from the instructions.
   example_submission_repo: rqthomas/challenge-template-example-submission
 
