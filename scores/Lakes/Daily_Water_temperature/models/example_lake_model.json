@@ -1,0 +1,223 @@
+{
+  "stac_version": "1.0.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/table/v1.2.0/schema.json"
+  ],
+  "type": "Feature",
+  "id": "example_lake_model_temperature_P1D_scores",
+  "bbox": [-79.8372, 37.3032, -79.8159, 37.3129],
+  "geometry": {
+    "type": "MultiPoint",
+    "coordinates": [
+      [-79.8159, 37.3129],
+      [-79.8372, 37.3032]
+    ]
+  },
+  "properties": {
+    "title": "example_lake_model",
+    "description": "All scores for the Daily_Water_temperature variable for the example_lake_model model. Information for the model is provided as follows: At each lake, a linear regression of daily mean water temperature on daily mean 2 m air temperature from the NOAA GEFS analysis, fitted to the past year. It is driven by the 31 members of the NOAA GEFS ensemble weather forecast (both read from dynamical.org), each member's air temperature passed through the regression plus a draw from its residuals, to give a 31-member ensemble forecast of water temperature. A deliberately simple model that shows the ensemble submission format and how to read weather forecasts from dynamical.org.. The model predicts this variable at the following sites: bvre, fcre. Scores are metrics that describe how well forecasts compare to observations. The scores catalog includes summaries of the forecasts (i.e., mean, median, confidence intervals), matched observations (if available), and scores (metrics of how well the model distribution compares to observations).",
+    "datetime": "2026-11-20T00:00:00Z",
+    "updated": "2026-11-22T00:00:00Z",
+    "start_datetime": "2026-11-20T00:00:00Z",
+    "end_datetime": "2026-11-21T00:00:00Z",
+    "providers": [
+      {
+        "url": "https://rqthomas.github.io/challenge-template/",
+        "name": "Example Forecasting Challenge",
+        "roles": [
+          "producer",
+          "processor",
+          "licensor"
+        ]
+      },
+      {
+        "url": "https://ecoforecast.org/",
+        "name": "Ecological Forecasting Initiative",
+        "roles": [
+          "host"
+        ]
+      }
+    ],
+    "license": "CC0-1.0",
+    "keywords": [
+      "Scores",
+      "templatecast",
+      "Lakes",
+      "example_lake_model",
+      "Water_temperature",
+      "temperature",
+      "Daily",
+      "P1D",
+      "bvre",
+      "fcre"
+    ],
+    "table:columns": [
+      {
+        "name": "reference_datetime",
+        "type": "timestamp[us]",
+        "description": "datetime that the forecast was initiated (horizon = 0)"
+      },
+      {
+        "name": "site_id",
+        "type": "string",
+        "description": "For forecasts that are not on a spatial grid, use of a site dimension that maps to a more detailed geometry (points, polygons, etc.) is allowable. In general this would be documented in the external metadata (e.g., a look-up table that provides lon and lat)"
+      },
+      {
+        "name": "datetime",
+        "type": "timestamp[us]",
+        "description": "datetime of the forecasted value (ISO 8601)"
+      },
+      {
+        "name": "family",
+        "type": "string",
+        "description": "For ensembles: “ensemble.” Default value if unspecified for probability distributions: Name of the statistical distribution associated with the reported statistics. The “sample” distribution is synonymous with “ensemble.” For summary statistics: “summary.”"
+      },
+      {
+        "name": "pub_datetime",
+        "type": "timestamp[us]",
+        "description": "datetime that forecast was submitted"
+      },
+      {
+        "name": "observation",
+        "type": "double",
+        "description": "observed value for variable"
+      },
+      {
+        "name": "crps",
+        "type": "double",
+        "description": "crps forecast score"
+      },
+      {
+        "name": "logs",
+        "type": "double",
+        "description": "logs forecast score"
+      },
+      {
+        "name": "mean",
+        "type": "double",
+        "description": "mean forecast prediction"
+      },
+      {
+        "name": "median",
+        "type": "double",
+        "description": "median forecast prediction"
+      },
+      {
+        "name": "sd",
+        "type": "double",
+        "description": "standard deviation of the forecast"
+      },
+      {
+        "name": "quantile97.5",
+        "type": "double",
+        "description": "upper 97.5 percentile value of forecast"
+      },
+      {
+        "name": "quantile02.5",
+        "type": "double",
+        "description": "lower 2.5 percentile value of forecast"
+      },
+      {
+        "name": "quantile90",
+        "type": "double",
+        "description": "upper 90 percentile value of forecast"
+      },
+      {
+        "name": "quantile10",
+        "type": "double",
+        "description": "lower 10 percentile value of forecast"
+      },
+      {
+        "name": "project_id",
+        "type": "string",
+        "description": "unique identifier for the forecast project"
+      },
+      {
+        "name": "duration",
+        "type": "string",
+        "description": "temporal duration of forecast (hourly = PT1H, daily = P1D, etc.); follows ISO 8601 duration convention"
+      },
+      {
+        "name": "variable",
+        "type": "string",
+        "description": "name of forecasted variable"
+      },
+      {
+        "name": "model_id",
+        "type": "string",
+        "description": "unique model identifier"
+      }
+    ]
+  },
+  "collection": "scores",
+  "links": [
+    {
+      "rel": "collection",
+      "href": "../collection.json",
+      "type": "application/json",
+      "title": "Daily_Water_temperature"
+    },
+    {
+      "rel": "root",
+      "href": "../../../../catalog.json",
+      "type": "application/json",
+      "title": "Forecast Catalog"
+    },
+    {
+      "rel": "parent",
+      "href": "../collection.json",
+      "type": "application/json",
+      "title": "Daily_Water_temperature"
+    },
+    {
+      "rel": "self",
+      "href": "example_lake_model.json",
+      "type": "application/json",
+      "title": "Model Forecast"
+    },
+    {
+      "rel": "item",
+      "href": "https://github.com/rqthomas/challenge-template-example-submission",
+      "type": "text/html",
+      "title": "Link for Model Code"
+    },
+    {
+      "rel": "item",
+      "href": "https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/rqthomas/challenge-template/catalog/scores/Lakes/Daily_Water_temperature/models/example_lake_model.json",
+      "type": "text/html",
+      "title": "Link for rendered STAC item"
+    },
+    {
+      "rel": "item",
+      "href": "https://raw.githubusercontent.com/rqthomas/challenge-template/catalog/scores/Lakes/Daily_Water_temperature/models/example_lake_model.json",
+      "type": "text/html",
+      "title": "Link for raw JSON file"
+    }
+  ],
+  "assets": {
+    "1": {
+      "type": "application/json",
+      "title": "Model Metadata",
+      "href": "https://s3.us-east-005.backblazeb2.com/template-challenge/metadata/model_id/example_lake_model.json",
+      "description": "Use `jsonlite::fromJSON()` to download the model metadata JSON file. This R code will return metadata provided during the model registration.\n\n### R\n\n```{r}\n# Use code below\n\nmodel_metadata <- jsonlite::fromJSON(\"https://s3.us-east-005.backblazeb2.com/template-challenge/metadata/model_id/example_lake_model.json\")\n```"
+    },
+    "2": {
+      "type": "text/html",
+      "title": "Link for Model Code",
+      "href": "https://github.com/rqthomas/challenge-template-example-submission",
+      "description": "The link to the model code provided by the model submission team"
+    },
+    "3": {
+      "type": "text/plain",
+      "title": "Model Sites",
+      "href": "sites.csv",
+      "description": "bvre, fcre"
+    },
+    "4": {
+      "type": "application/x-parquet",
+      "title": "Database Access for Daily Water_temperature",
+      "href": "s3://anonymous@template-challenge/scores/bundled-parquet/project_id=templatecast/duration=P1D/variable=temperature/model_id=example_lake_model?endpoint_override=s3.us-east-005.backblazeb2.com&region=us-east-005",
+      "description": "Use `R` or `Python` code for remote access to the database. This code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(\"s3://anonymous@template-challenge/scores/bundled-parquet/project_id=templatecast/duration=P1D/variable=temperature/model_id=example_lake_model?endpoint_override=s3.us-east-005.backblazeb2.com&region=us-east-005\")\ndf <- all_results |> dplyr::collect()\n```\n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n### Python\n\n```{python}\n# Use code below\nimport ibis\ncon = ibis.duckdb.connect()\ncon.raw_sql(\"CREATE OR REPLACE SECRET secret (TYPE S3, ENDPOINT 's3.us-east-005.backblazeb2.com', URL_STYLE 'path', REGION 'us-east-005')\")\ndf = con.read_parquet(\"s3://template-challenge/scores/bundled-parquet/project_id=templatecast/duration=P1D/variable=temperature/model_id=example_lake_model/**\")\n```"
+    }
+  }
+}
