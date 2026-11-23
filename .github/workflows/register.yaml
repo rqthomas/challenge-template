@@ -21,4 +21,4 @@ jobs:
     permissions:
       contents: write
       issues: write
-    uses: rqthomas/challenge-ci/.github/workflows/_register.yaml@v0.1.0-rc.13
+    uses: rqthomas/challenge-ci/.github/workflows/_register.yaml@v0.1.0-rc.14
