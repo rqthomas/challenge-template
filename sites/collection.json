@@ -1,0 +1,94 @@
+{
+  "id": "sites",
+  "description": "The catalog contains site metadata for the Example Forecasting Challenge",
+  "stac_version": "1.0.0",
+  "license": "CC0-1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/scientific/v1.0.0/schema.json",
+    "https://stac-extensions.github.io/item-assets/v1.0.0/schema.json",
+    "https://stac-extensions.github.io/table/v1.2.0/schema.json"
+  ],
+  "type": "Collection",
+  "links": [
+    {
+      "rel": "parent",
+      "type": "application/json",
+      "href": "../catalog.json"
+    },
+    {
+      "rel": "root",
+      "type": "application/json",
+      "href": "../catalog.json"
+    },
+    {
+      "rel": "self",
+      "type": "application/json",
+      "href": "collection.json"
+    },
+    {
+      "rel": "cite-as",
+      "href": "https://doi.org/10.22541/essoar.15011733/v1"
+    },
+    {
+      "rel": "about",
+      "type": "text/html",
+      "href": "https://projects.ecoforecast.org/challenge-template",
+      "title": "Example Forecasting Challenge"
+    },
+    {
+      "rel": "describedby",
+      "type": "text/html",
+      "href": "https://rqthomas.github.io/challenge-template/",
+      "title": "Example Forecasting Challenge"
+    }
+  ],
+  "title": "Site Metadata",
+  "extent": {
+    "spatial": {
+      "bbox": [
+        [-79.84, 37.3, -79.81, 37.32]
+      ]
+    },
+    "temporal": {
+      "interval": [
+        [
+          "2018-08-06T00:00:00Z",
+          "2026-11-21T00:00:00Z"
+        ]
+      ]
+    }
+  },
+  "table:columns": [
+    {
+      "name": "site_id",
+      "type": "character"
+    },
+    {
+      "name": "site_name",
+      "type": "character"
+    },
+    {
+      "name": "latitude",
+      "type": "numeric"
+    },
+    {
+      "name": "longitude",
+      "type": "numeric"
+    },
+    {
+      "name": "lakes",
+      "type": "numeric"
+    }
+  ],
+  "assets": {
+    "data": {
+      "href": "sites.csv",
+      "type": "text/csv",
+      "title": "Site Metadata Access",
+      "roles": [
+        "data"
+      ],
+      "description": "This R code will return the data in this file.\n\n### R\n\n```{r}\n# Use code below\n\nurl <- \"sites.csv\"\ndf <- readr::read_csv(url, show_col_types = FALSE)\n```"
+    }
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "type": "Catalog",
+  "id": "templatecast-stac",
+  "title": "Example Forecasting Challenge Catalog",
+  "description": "A STAC (Spatiotemporal Asset Catalog) describing forecasts and forecast scores for the templatecast Forecasting Challenge",
+  "stac_version": "1.0.0",
+  "links": [
+    {
+      "rel": "self",
+      "type": "application/json",
+      "href": "catalog.json"
+    },
+    {
+      "rel": "root",
+      "type": "application/json",
+      "href": "catalog.json"
+    },
+    {
+      "rel": "child",
+      "type": "application/json",
+      "href": "forecasts/collection.json",
+      "title": "Forecasts"
+    },
+    {
+      "rel": "child",
+      "type": "application/json",
+      "href": "scores/collection.json",
+      "title": "Scores"
+    },
+    {
+      "rel": "child",
+      "type": "application/json",
+      "href": "targets/collection.json",
+      "title": "Targets"
+    },
+    {
+      "rel": "child",
+      "type": "application/json",
+      "href": "summaries/collection.json",
+      "title": "Forecast Summaries"
+    },
+    {
+      "rel": "child",
+      "type": "application/json",
+      "href": "sites/collection.json",
+      "title": "Sites"
+    }
+  ]
+}

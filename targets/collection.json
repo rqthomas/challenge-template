@@ -1,0 +1,102 @@
+{
+  "id": "targets",
+  "description": "The targets are observations that can be used to evaluate and build forecasts. We provide the code to access different targets as an asset.",
+  "stac_version": "1.0.0",
+  "license": "CC0-1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/table/v1.2.0/schema.json"
+  ],
+  "type": "Collection",
+  "links": [
+    {
+      "rel": "parent",
+      "type": "application/json",
+      "href": "../catalog.json"
+    },
+    {
+      "rel": "root",
+      "type": "application/json",
+      "href": "../catalog.json"
+    },
+    {
+      "rel": "self",
+      "type": "application/json",
+      "href": "collection.json"
+    },
+    {
+      "rel": "cite-as",
+      "href": "https://doi.org/10.22541/essoar.15011733/v1"
+    },
+    {
+      "rel": "about",
+      "type": "text/html",
+      "href": "https://projects.ecoforecast.org/challenge-template",
+      "title": "Example Forecasting Challenge"
+    },
+    {
+      "rel": "describedby",
+      "type": "text/html",
+      "href": "https://rqthomas.github.io/challenge-template/",
+      "title": "Example Forecasting Challenge"
+    }
+  ],
+  "title": "Targets",
+  "extent": {
+    "spatial": {
+      "bbox": [
+        [-79.84, 37.3, -79.81, 37.32]
+      ]
+    },
+    "temporal": {
+      "interval": [
+        [
+          "2018-08-06T00:00:00Z",
+          "2026-11-21T00:00:00Z"
+        ]
+      ]
+    }
+  },
+  "table:columns": [
+    {
+      "name": "project_id",
+      "type": "character",
+      "description": "unique project identifier"
+    },
+    {
+      "name": "site_id",
+      "type": "character",
+      "description": "unique site identifier"
+    },
+    {
+      "name": "datetime",
+      "type": ["POSIXct", "POSIXt"],
+      "description": "datetime of the observed value (ISO 8601)"
+    },
+    {
+      "name": "duration",
+      "type": "character",
+      "description": "temporal duration of target (hourly = PT1H, daily = P1D, etc.); follows ISO 8601 duration convention"
+    },
+    {
+      "name": "variable",
+      "type": "character",
+      "description": "observation variable"
+    },
+    {
+      "name": "observation",
+      "type": "numeric",
+      "description": "observed value for variable"
+    }
+  ],
+  "assets": {
+    "Lakes": {
+      "href": "https://s3.us-east-005.backblazeb2.com/template-challenge/targets/project_id=templatecast/duration=P1D/lakes-targets.csv.gz",
+      "type": "text/csv",
+      "title": "Lakes Target Access",
+      "roles": [
+        "data"
+      ],
+      "description": "This R code will return the data in this file.\n\n### R\n\n```{r}\n# Use code below\n\nurl <- \"https://s3.us-east-005.backblazeb2.com/template-challenge/targets/project_id=templatecast/duration=P1D/lakes-targets.csv.gz\"\ndf <- readr::read_csv(url, show_col_types = FALSE)\n```"
+    }
+  }
+}
