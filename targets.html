@@ -27,41 +27,6 @@ ul.task-list li input[type="checkbox"] {
   vertical-align: middle;
 }
 .display.math{display: block; text-align: center; margin: 0.5rem auto;}
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -174,9 +139,12 @@ init();
 </tr>
 </tbody>
 </table>
-<p>The target file is at the following URL. You can load it directly into R:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">"https://s3.us-east-005.backblazeb2.com/template-challenge/targets/project_id=templatecast/duration=P1D/lakes-targets.csv.gz"</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>targets <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(url, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<p>The target file is at the following URL:</p>
+<p><a href="https://s3.us-east-005.backblazeb2.com/template-challenge/targets/project_id=templatecast/duration=P1D/lakes-targets.csv.gz"><code>https://s3.us-east-005.backblazeb2.com/template-challenge/targets/project_id=templatecast/duration=P1D/lakes-targets.csv.gz</code></a></p>
+<p>Read it with the code below (the same as on the <a href="data.html">Data</a> page):</p>
+<div data-read-targets="" data-url="https://s3.us-east-005.backblazeb2.com/template-challenge/targets/project_id=templatecast/duration=P1D/lakes-targets.csv.gz">
+
+</div>
 <p>The file contains the following columns:</p>
 <table class="caption-top">
 <thead>
@@ -250,8 +218,8 @@ init();
 <h2 id="explore-the-sites">Explore the sites</h2>
 <div class="cell">
 <div class="cell-output-display">
-<div class="leaflet html-widget html-fill-item" id="htmlwidget-8f92a978a4ac4bc027da" style="width:100%;height:464px;"></div>
-<script type="application/json" data-for="htmlwidget-8f92a978a4ac4bc027da">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"fitBounds":[37.303153,-79.837217,37.312909,-79.81593599999999,{"maxZoom":13,"padding":[40,40]}],"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,"OSM",{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org/copyright/\">OpenStreetMap<\/a>,  <a href=\"https://opendatacommons.org/licenses/odbl/\">ODbL<\/a>"}]},{"method":"addProviderTiles","args":["Esri.WorldImagery",null,"Imagery",{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addProviderTiles","args":["Esri.WorldTopoMap",null,"Topo Map",{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addLayersControl","args":[["Imagery","OSM","Topo Map"],[],{"collapsed":true,"autoZIndex":true,"position":"topright"}]},{"method":"addMarkers","args":[[37.303153,37.312909],[-79.837217,-79.81593599999999],null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},["Falling Creek Reservoir (fcre)","Beaverdam Reservoir (bvre)"],null,null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[37.303153,37.312909],"lng":[-79.837217,-79.81593599999999]}},"evals":[],"jsHooks":[]}</script>
+<div class="leaflet html-widget html-fill-item" id="htmlwidget-6ea4449a2e3ba22113a0" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-6ea4449a2e3ba22113a0">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"fitBounds":[37.303153,-79.837217,37.312909,-79.81593599999999,{"maxZoom":13,"padding":[40,40]}],"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,"OSM",{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org/copyright/\">OpenStreetMap<\/a>,  <a href=\"https://opendatacommons.org/licenses/odbl/\">ODbL<\/a>"}]},{"method":"addProviderTiles","args":["Esri.WorldImagery",null,"Imagery",{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addProviderTiles","args":["Esri.WorldTopoMap",null,"Topo Map",{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addLayersControl","args":[["Imagery","OSM","Topo Map"],[],{"collapsed":true,"autoZIndex":true,"position":"topright"}]},{"method":"addMarkers","args":[[37.303153,37.312909],[-79.837217,-79.81593599999999],null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},["Falling Creek Reservoir (fcre)","Beaverdam Reservoir (bvre)"],null,null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[37.303153,37.312909],"lng":[-79.837217,-79.81593599999999]}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p><br> <br> The following table lists all the sites in the Example Forecasting Challenge. The columns with theme names say whether the site is in that theme’s target file.</p>

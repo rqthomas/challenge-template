@@ -107,21 +107,23 @@ export function init() {
         h('p', { class: 'muted', style: 'margin:0 0 20px' }, github ? 'No account and no upload form. Your repository is the submission.' : 'Everything you need is on the instructions page.'),
         h('div', { class: 'steps' }, steps.map((s) => h('a', { class: 'step', href: 'participate.html' },
           h('div', { class: 'step-head' }, h('span', { class: 'step-n' }, s.n), s.title), h('p', null, s.text))))),
-      // The three cards share a row (and stack on narrow screens).
-      h('section', { class: 'trio mt-lg' },
-        boardHost,
+      // Two columns (one when narrow): the leaderboard with what to forecast under it,
+      // and the recent activity beside them.
+      h('section', { class: 'duo mt-lg' },
+        h('div', { class: 'stack' },
+          boardHost,
+          h('div', { class: 'card' },
+            h('h2', null, 'What to forecast'),
+            meta.variables.map((v) => h('div', { style: 'padding:10px 0;border-top:1px solid var(--line)' },
+              h('div', { style: 'font-weight:500' }, variableLabel(v)),
+              h('div', { class: 'small muted' }, `${v.group} · up to ${v.max_horizon} days ahead`))),
+            h('a', { href: 'targets.html', style: 'display:inline-block;margin-top:10px;font-weight:500;text-decoration:none' }, 'Targets and sites →'))),
         h('div', { class: 'card' },
           h('h2', null, 'Recent activity'),
           feed?.events?.length ? shownEvents(feed.events).map(activityItem) : empty('Nothing has been submitted or scored yet.'),
           meta.access.results_published
             ? h('a', { href: 'participate.html#check', style: 'display:inline-block;margin-top:10px;font-size:14px;font-weight:500;text-decoration:none' }, 'Check your own submissions →')
-            : null),
-        h('div', { class: 'card' },
-          h('h2', null, 'What to forecast'),
-          meta.variables.map((v) => h('div', { style: 'padding:10px 0;border-top:1px solid var(--line)' },
-            h('div', { style: 'font-weight:500' }, variableLabel(v)),
-            h('div', { class: 'small muted' }, `${v.group} · up to ${v.max_horizon} days ahead`))),
-          h('a', { href: 'targets.html', style: 'display:inline-block;margin-top:10px;font-weight:500;text-decoration:none' }, 'Targets and sites →'))));
+            : null)));
     await draw();
   });
 }

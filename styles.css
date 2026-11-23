@@ -174,12 +174,11 @@ code, pre, kbd { font-family: var(--font-mono); font-size: 13px; }
 .row > .grow-2 { flex: 2 1 480px; min-width: 0; }
 .row > .grow-3 { flex: 3 1 560px; min-width: 0; }
 .stack { display: flex; flex-direction: column; gap: 20px; }
-/* Leaderboard, recent activity and what to forecast on one row; one column when narrow. */
-.trio { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr) minmax(0, 1fr);
-        gap: 24px; align-items: start; }
-@media (max-width: 1040px) { .trio { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
-                             .trio > :first-child { grid-column: 1 / -1; } }
-@media (max-width: 680px) { .trio { grid-template-columns: minmax(0, 1fr); } }
+/* Leaderboard over what to forecast in the left column, recent activity in the right;
+   one column when narrow. */
+.duo { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 24px;
+       align-items: start; }
+@media (max-width: 900px) { .duo { grid-template-columns: minmax(0, 1fr); } }
 .gap-sm { display: flex; flex-wrap: wrap; gap: 6px; }
 .mt { margin-top: 24px; }
 .mt-lg { margin-top: 48px; }

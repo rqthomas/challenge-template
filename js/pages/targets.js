@@ -1,11 +1,14 @@
 // Targets page: the observations of each variable at the focal sites, drawn
 // like the forecasts on the explorer (same chart, same observed dots), with
 // a site and a range to choose. Fills every [data-targets-group] element the
-// page has (one per target group, in its tab).
+// page has (one per target group, in its tab), and every [data-read-targets]
+// element with the code that reads that group's target file: the same code as
+// the Data page (a key from the environment only when the bucket is private).
 
 import { h, mount } from '../dom.js';
 import * as data from '../data.js';
 import { boot, chips, empty, variableLabel } from '../common.js';
+import { codeBlock } from '../snippets.js';
 import { forecastChart } from '../chart.js';
 import { dayYear, integer, MS_DAY } from '../fmt.js';
 
@@ -17,8 +20,16 @@ const RANGES = [
 
 export function init() {
   const hosts = [...document.querySelectorAll('[data-targets-group]')];
+  const readers = [...document.querySelectorAll('[data-read-targets]')];
   // #app only shows "Loading…", or what went wrong; the charts fill the tabs.
   boot(async (app, meta) => {
+    const targets = meta.datasets?.find((d) => d.id === 'targets');
+    for (const host of readers) {
+      mount(host, codeBlock({
+        id: 'targets', format: targets?.format || 'CSV, gzip', urls: [host.dataset.url],
+        public: targets ? targets.public : meta.access.public_read,
+      }));
+    }
     for (const host of hosts) {
       const group = meta.groups.find((g) => g.name === host.dataset.targetsGroup);
       const variables = meta.variables.filter((v) => v.group === host.dataset.targetsGroup);
