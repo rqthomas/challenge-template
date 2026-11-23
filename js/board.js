@@ -3,14 +3,15 @@
 // Rows for one window, best first. With a baseline the ranking is by skill
 // (higher is better); without one, by mean CRPS (lower is better). Models with
 // fewer forecast days than `minForecasts` are not ranked: they follow the
-// ranked ones with rank null.
-export function rankModels(board, windowDays, { minForecasts = 5, exclude = () => false } = {}) {
+// ranked ones with rank null. With a `horizon` (days) only forecasts made that
+// far ahead count, and there is no trend (the trend is over all horizons).
+export function rankModels(board, windowDays, { minForecasts = 5, exclude = () => false, horizon = null } = {}) {
   const bySkill = Boolean(board.baseline);
   const rows = Object.entries(board.models)
     .filter(([id]) => !exclude(id))
     .map(([id, m]) => {
-      const w = m.w?.[String(windowDays)];
-      return w ? { id, skill: w.skill ?? null, crps: w.crps ?? null, n: w.n, days: w.dates, trend: m.t } : null;
+      const w = horizon === null ? m.w?.[String(windowDays)] : m.wh?.[String(horizon)]?.[String(windowDays)];
+      return w ? { id, skill: w.skill ?? null, crps: w.crps ?? null, n: w.n, days: w.dates, trend: horizon === null ? m.t : null } : null;
     })
     .filter(Boolean);
   const value = (r) => (bySkill ? r.skill : r.crps === null ? null : -r.crps);

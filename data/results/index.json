@@ -1,1 +1,1 @@
-{"schema":1,"results":[]}
+{"schema":1,"results":{"climatology":{"sources":["baseline"],"last":"2026-11-23T00:36:06Z","models":["climatology"]},"example_lake_model":{"sources":["github.com/rqthomas/challenge-template-example-submission","github:rqthomas/challenge-template-example-submission"],"last":"2026-11-23T01:29:39Z","models":["example_lake_model"]},"persistenceRW":{"sources":["baseline"],"last":"2026-11-23T00:36:10Z","models":["persistenceRW"]}}}

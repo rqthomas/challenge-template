@@ -101,6 +101,17 @@ export function init() {
   });
 }
 
+// A repository address in one form, so that what a person types (owner/name,
+// https://host/owner/name(.git), host/owner/name) matches what the challenge
+// published as the source (host/owner/name; older results: github:owner/name).
+function repoKey(text) {
+  let s = String(text || '').trim().toLowerCase().replace(/^https?:\/\//, '').replace(/\.git$/, '').replace(/\/+$/, '');
+  if (s.startsWith('github:')) s = `github.com/${s.slice('github:'.length)}`;
+  const parts = s.split('/');
+  if (parts.length === 2 && !parts[0].includes('.')) s = `github.com/${s}`;
+  return s;
+}
+
 // "Check my submissions": a model id or a repository, matched against the
 // published results index.
 function drawCheck(host) {
@@ -115,9 +126,10 @@ function drawCheck(host) {
     if (q) {
       const index = await data.resultsIndex();
       const entries = Object.entries(index?.results || {});
-      const lower = q.toLowerCase().replace(/^https?:\/\/github\.com\//, '').replace(/\.git$/, '');
+      const lower = q.toLowerCase();
+      const repo = repoKey(q);
       const hit = entries.find(([name, e]) => name.toLowerCase() === lower || (e.models || []).some((m) => m.toLowerCase() === lower)
-        || (e.sources || []).some((s) => s.toLowerCase() === `github:${lower}`));
+        || (e.sources || []).some((s) => repoKey(s) === repo));
       if (hit) state.result = { name: hit[0], file: await data.results(hit[0]), models: hit[1].models };
     }
     drawList();

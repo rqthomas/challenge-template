@@ -17,6 +17,10 @@ function noScores(meta) {
   return `${submitted}Nothing has been scored for this variable yet: a forecast is scored once observations for the days it covers arrive. The most recent observation is from ${lastObservation}.`;
 }
 
+// "1 day ahead", "7 days ahead": the toggle and the sentences that say what is shown.
+const horizonName = (d) => `${d} day${d === 1 ? '' : 's'}`;
+const horizonLabel = (d) => `${horizonName(d)} ahead`;
+
 export function init() {
   boot(async (root, meta) => {
     const index = await data.models();
@@ -26,6 +30,8 @@ export function init() {
       variable: findVariable(meta, saved.variable).id,
       window: saved.window ? Number(saved.window) : null,
       show: ['all', 'participants', 'baselines'].includes(saved.show) ? saved.show : 'all',
+      // null is all horizons; otherwise one of meta.horizons (lead time in days).
+      horizon: (meta.horizons || []).includes(Number(saved.horizon)) ? Number(saved.horizon) : null,
       mine: remembered('my-model') || '',
     };
     const results = h('div');
@@ -34,7 +40,7 @@ export function init() {
       const variable = findVariable(meta, state.variable);
       const windows = variable.windows;
       if (!windows.includes(state.window)) state.window = windows[1];
-      writeState({ variable: state.variable, window: state.window, show: state.show });
+      writeState({ variable: state.variable, window: state.window, show: state.show, horizon: state.horizon });
       const board = await data.leaderboard(variable.id);
       mount(results, board && Object.keys(board.models).length
         ? table(board, variable) : empty(noScores(meta)));
@@ -45,8 +51,11 @@ export function init() {
         const baseline = info.get(id)?.baseline || id === board.baseline;
         return (state.show === 'participants' && baseline) || (state.show === 'baselines' && !baseline);
       };
-      const { rows, bySkill } = rankModels(board, state.window, { minForecasts: meta.min_forecasts, exclude });
-      if (rows.length === 0) return empty('No models match this filter.');
+      const { rows, bySkill } = rankModels(board, state.window, { minForecasts: meta.min_forecasts, exclude, horizon: state.horizon });
+      if (rows.length === 0) {
+        return empty(state.horizon === null ? 'No models match this filter.'
+          : `No forecasts were made ${horizonLabel(state.horizon)} for this variable and window.`);
+      }
       const best = Math.max(0.0001, ...rows.map((r) => (bySkill ? r.skill ?? 0 : 0)));
       const worstCrps = Math.max(0.0001, ...rows.map((r) => r.crps ?? 0));
       const mine = state.mine.trim();
@@ -66,7 +75,7 @@ export function init() {
               h('strong', { class: 'num', style: 'width:52px;text-align:right' }, bySkill ? skill(r.skill) : num(r.crps, 3)))),
           h('td', { class: 'num' }, num(r.crps, 3)),
           h('td', { class: 'num muted' }, r.rank === null ? `${integer(r.days)} (not ranked)` : integer(r.days)),
-          h('td', { class: 'num' }, sparkline(trendValues(r.trend, bySkill), { label: 'Trend over the last 30 forecast days' })));
+          h('td', { class: 'num' }, r.trend ? sparkline(trendValues(r.trend, bySkill), { label: 'Trend over the last 30 forecast days' }) : h('span', { class: 'muted', title: 'The trend is shown for all horizons' }, '–')));
       });
       const ranked = rows.filter((r) => r.rank !== null).length;
       return h('div', { class: 'card flush' },
@@ -78,7 +87,7 @@ export function init() {
               h('th', { class: 'num' }, 'CRPS'), h('th', { class: 'num' }, 'Forecast days'), h('th', { class: 'num' }, 'Trend'))),
             h('tbody', null, body))),
         h('div', { class: 'table-foot' },
-          h('span', null, `${ranked} ranked, ${rows.length - ranked} not yet ranked · ${variable.long_name || variable.variable} · forecasts made in the last ${span(state.window)} · updated ${board.updated.slice(0, 10)}`),
+          h('span', null, `${ranked} ranked, ${rows.length - ranked} not yet ranked · ${variable.long_name || variable.variable} · forecasts made in the last ${span(state.window)}${state.horizon === null ? '' : ` · ${horizonLabel(state.horizon)}`} · updated ${board.updated.slice(0, 10)}`),
           h('a', { href: `forecasts.html#variable=${encodeURIComponent(variable.id)}` }, 'Compare models in the forecast explorer →')));
     }
 
@@ -92,10 +101,15 @@ export function init() {
         h('div', null, h('span', { class: 'field-label' }, 'Forecasts made in the last'),
           chips(variable.windows.map((w) => ({ value: w, label: span(w) })), state.window ?? variable.windows[1],
             (w) => { state.window = w; drawControls(); draw(); })),
+        (meta.horizons || []).length > 0
+          ? h('div', null, h('span', { class: 'field-label' }, 'Horizon'),
+            chips([{ value: null, label: 'All horizons' }, ...meta.horizons.map((d) => ({ value: d, label: horizonLabel(d) }))],
+              state.horizon, (d) => { state.horizon = d; drawControls(); draw(); }))
+          : null,
         h('div', null, h('span', { class: 'field-label' }, 'Show'),
           chips([{ value: 'all', label: 'All models' }, { value: 'participants', label: 'Participants' }, { value: 'baselines', label: 'Baselines' }],
             state.show, (s) => { state.show = s; drawControls(); draw(); })),
-        h('div', { style: 'margin-left:auto' }, h('label', { class: 'field-label', for: 'mine' }, 'My model'),
+        h('div', null, h('label', { class: 'field-label', for: 'mine' }, 'My model'),
           h('input', {
             class: 'input mono', id: 'mine', type: 'text', list: 'model-ids', value: state.mine, placeholder: 'model_id',
             onChange: (e) => { state.mine = e.target.value.trim(); remembered('my-model', state.mine); draw(); },
@@ -107,12 +121,13 @@ export function init() {
     mount(root,
       h('h1', { class: 'page-title' }, 'Leaderboard'),
       h('p', { class: 'page-lead' },
-        'Models are ranked by skill: how much smaller their error is than the baseline’s on the same forecasts. Zero means no better than the baseline; one means no error. Where a variable has no baseline, models are ranked by mean CRPS (lower is better).'),
+        'Models are ranked by skill = 1 − CRPS_forecast ÷ CRPS_climatology: how much smaller the forecast’s error is than climatology’s on the same forecasts. Zero means no better than climatology, one means no error, and below zero is worse. Where a variable has no baseline, models are ranked by mean CRPS (lower is better).'),
       controls, results,
       h('section', { class: 'row mt' },
         h('div', { class: 'card grow' }, h('h3', null, 'How skill is calculated'),
+          h('p', { class: 'small', style: 'margin:0 0 8px;font-weight:500' }, 'Skill = 1 − CRPS_forecast ÷ CRPS_climatology'),
           h('p', { class: 'muted small', style: 'margin:0' },
-            `For each forecast the CRPS is summed over the sites and days that the model and the baseline both forecast. Skill is one minus the ratio of the two sums. A model with fewer than ${meta.min_forecasts} forecast days in the window is listed but not ranked.`)),
+            `CRPS_forecast is the model’s mean CRPS, and CRPS_climatology is the climatology forecast’s mean CRPS, over the sites and days that both forecast in the window. With a horizon chosen, only forecasts made that many days ahead are counted. Lower CRPS is better, so skill is above zero when the model beats climatology. A variable measured against another baseline says so in the column heading. A model with fewer than ${meta.min_forecasts} forecast days in the window is listed but not ranked.`)),
         h('div', { class: 'card grow' }, h('h3', null, 'Why is my model missing?'),
           h('p', { class: 'muted small', style: 'margin:0' }, 'A model appears after its first forecast has been processed and the observations it is scored against have arrived. ',
             h('a', { href: 'participate.html#check' }, 'Check your submissions'), ' to see what has been processed.'))));

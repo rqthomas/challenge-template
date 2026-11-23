@@ -68,7 +68,7 @@ export function init() {
           h('h2', { style: 'margin:0' }, 'Leaderboard'),
           h('a', { href: `leaderboard.html#variable=${encodeURIComponent(variable.id)}`, style: 'font-weight:500;text-decoration:none' }, 'Full leaderboard →')),
         h('div', { class: 'small muted', style: 'margin-bottom:10px' },
-          `${variableLabel(variable)}, last ${variable.windows[1]} days` + (board?.baseline ? ` · skill against ${board.baseline} (higher is better)` : ' · mean CRPS (lower is better)')),
+          `${variableLabel(variable)}, last ${variable.windows[1]} days` + (board?.baseline ? ` · skill = 1 − CRPS ÷ CRPS of ${board.baseline} (higher is better)` : ' · mean CRPS (lower is better)')),
         top.length ? top.map((r) => h('a', { class: 'rank-row', href: `model.html#model=${encodeURIComponent(r.id)}` },
           h('span', { class: 'rank-n' }, r.rank), h('span', { class: 'rank-name' }, r.id),
           h('span', { class: 'rank-bar bar' }, h('span', { style: `width:${ranking.bySkill ? Math.round(Math.max(0, (r.skill ?? 0) / best) * 100) : 100}%` })),
@@ -107,21 +107,21 @@ export function init() {
         h('p', { class: 'muted', style: 'margin:0 0 20px' }, github ? 'No account and no upload form. Your repository is the submission.' : 'Everything you need is on the instructions page.'),
         h('div', { class: 'steps' }, steps.map((s) => h('a', { class: 'step', href: 'participate.html' },
           h('div', { class: 'step-head' }, h('span', { class: 'step-n' }, s.n), s.title), h('p', null, s.text))))),
-      h('section', { class: 'row mt-lg' },
-        h('div', { style: 'flex:3 1 520px;min-width:0' }, boardHost),
-        h('div', { class: 'stack', style: 'flex:2 1 340px;min-width:0' },
-          h('div', { class: 'card' },
-            h('h2', null, 'Recent activity'),
-            feed?.events?.length ? shownEvents(feed.events).map(activityItem) : empty('Nothing has been submitted or scored yet.'),
-            meta.access.results_published
-              ? h('a', { href: 'participate.html#check', style: 'display:inline-block;margin-top:10px;font-size:14px;font-weight:500;text-decoration:none' }, 'Check your own submissions →')
-              : null),
-          h('div', { class: 'card' },
-            h('h2', null, 'What to forecast'),
-            meta.variables.map((v) => h('div', { style: 'padding:10px 0;border-top:1px solid var(--line)' },
-              h('div', { style: 'font-weight:500' }, variableLabel(v)),
-              h('div', { class: 'small muted' }, `${v.group} · up to ${v.max_horizon} days ahead`))),
-            h('a', { href: 'targets.html', style: 'display:inline-block;margin-top:10px;font-weight:500;text-decoration:none' }, 'Targets and sites →')))));
+      // The three cards share a row (and stack on narrow screens).
+      h('section', { class: 'trio mt-lg' },
+        boardHost,
+        h('div', { class: 'card' },
+          h('h2', null, 'Recent activity'),
+          feed?.events?.length ? shownEvents(feed.events).map(activityItem) : empty('Nothing has been submitted or scored yet.'),
+          meta.access.results_published
+            ? h('a', { href: 'participate.html#check', style: 'display:inline-block;margin-top:10px;font-size:14px;font-weight:500;text-decoration:none' }, 'Check your own submissions →')
+            : null),
+        h('div', { class: 'card' },
+          h('h2', null, 'What to forecast'),
+          meta.variables.map((v) => h('div', { style: 'padding:10px 0;border-top:1px solid var(--line)' },
+            h('div', { style: 'font-weight:500' }, variableLabel(v)),
+            h('div', { class: 'small muted' }, `${v.group} · up to ${v.max_horizon} days ahead`))),
+          h('a', { href: 'targets.html', style: 'display:inline-block;margin-top:10px;font-weight:500;text-decoration:none' }, 'Targets and sites →'))));
     await draw();
   });
 }
