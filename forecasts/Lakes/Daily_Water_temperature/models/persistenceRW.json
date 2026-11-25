@@ -16,10 +16,10 @@
   "properties": {
     "title": "persistenceRW",
     "description": "All forecasts for the Daily_Water_temperature variable for the persistenceRW model. Information for the model is provided as follows: A random walk fitted to each site and variable and started at the last observation; the ensemble spreads as the horizon grows.. The model predicts this variable at the following sites: bvre, fcre. Forecasts are the raw forecasts that include all ensemble members or distribution parameters. Due to the size of the raw forecasts, we recommend accessing the forecast summaries or scores to analyze forecasts (unless you need the individual ensemble members).",
-    "datetime": "2026-11-23T00:00:00Z",
-    "updated": "2026-11-23T00:00:00Z",
+    "datetime": "2026-11-24T00:00:00Z",
+    "updated": "2026-11-24T00:00:00Z",
     "start_datetime": "2026-11-21T00:00:00Z",
-    "end_datetime": "2026-12-23T00:00:00Z",
+    "end_datetime": "2026-12-24T00:00:00Z",
     "providers": [
       {
         "url": "https://github.com/eco4cast/challenge-ci/blob/main/R/baselines.R",
