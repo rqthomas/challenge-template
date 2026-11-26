@@ -105,7 +105,28 @@ in `.github/workflows/*.yaml` to one that has it.
 
 As shipped, the config points at the Backblaze B2 bucket `template-challenge`
 under `project_id: templatecast`; dry runs read it without writing to it. Keep the
-workflows' schedules commented out until the steps in *Going live* are done.
+pipeline's schedule (`pipeline.yaml`) commented out until the steps in *Going live* are done.
+
+## When things run, and when to submit
+
+One workflow, `.github/workflows/pipeline.yaml`, runs the whole challenge once a day: targets,
+baselines, submissions, bundling, scoring, then the dashboard and the catalog, each stage waiting
+for the one before. The other workflows (`targets.yaml`, `submissions.yaml`, ...) have no schedule;
+they are for running a stage by hand.
+
+Why one chain: GitHub's free runners start scheduled workflows hours late (4 to 12 hours here) and
+drop some, each workflow by a different amount. With a schedule for each stage, a forecast
+could be bundled after the dashboard that needed it, and never appear on the "latest forecast".
+In one chain the order holds however late the run starts. The schedule is `17 3 * * *` (UTC, not on
+the hour, since GitHub says the start of every hour is busy).
+
+**The deadline is a date.** The dashboard shows the forecast for reference date D at its update
+on day D + `dashboard: settle_days` (3 here), so a forecast must be committed by the end of day
+D + 2 (UTC). Later forecasts are still read and scored; they just are not the one on the latest
+views. The *Participate* and *Instructions* pages state this from the setting. The example
+submission's forecasts arrive 1 to 2 days after their reference date, which is why the setting is 3
+and not the default 2. Submitters should schedule their job twice a day, off the hour (the example
+repository does), so a late or dropped run still makes the deadline.
 
 ## Set up a free Backblaze B2 private bucket
 
@@ -254,9 +275,10 @@ GitHub:
 4. **Add the GitHub secrets** listed in *Secrets and tokens* below.
 5. **Point the workflows at an engine release that has GitHub submissions**
    (the version after `@` in `.github/workflows/*.yaml`).
-6. **Run each workflow once by hand** with *Dry run* ticked, then again with it
-   unticked, in this order: targets, baselines, submissions, bundling, scoring,
-   catalog, dashboard. Then uncomment the schedules.
+6. **Run the pipeline once by hand** (*Actions*, *pipeline*, *Run workflow*) with *Dry run*
+   ticked, then again with it unticked. It runs targets, baselines, submissions, bundling,
+   scoring, then the dashboard and catalog, in that order. Then leave its schedule on
+   (`pipeline.yaml`); the other workflows have none.
 7. **Nothing to create for the catalog.** It is committed to the `catalog` branch of
    this repository (`catalog_config: catalog_branch`): the first *catalog* run creates
    the branch, empty apart from the catalog, and the built-in token pushes to it (the

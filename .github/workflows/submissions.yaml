@@ -3,10 +3,8 @@
 name: process-submissions
 
 on:
-  # Off until the challenge is set up: uncomment to turn the schedule on
-  # (step 12 of docs/launching-a-new-challenge.md in the engine).
-  schedule:
-    - cron: '0 */2 * * *'
+  # No schedule here: pipeline.yaml runs this stage, in order with the others.
+  # This trigger is for manual and dry runs.
   workflow_dispatch:
     inputs:
       dry_run:

@@ -1,0 +1,119 @@
+# One daily pipeline that runs the engine's stages in order. Copy into .github/workflows/
+# of a challenge repository; set the engine version after @.
+#
+# Use this INSTEAD of the separate schedules of targets, baselines, submissions, bundling,
+# scoring, dashboard and catalog (remove their `schedule:` lines; they stay for manual runs).
+#
+# Why: on GitHub's free runners a scheduled run starts hours late (4 to 12 hours in practice)
+# and some are dropped, each workflow by a different amount, so independent schedules do not
+# keep their order. A forecast then arrives after the bundling that dashboard needed, and
+# the "latest forecast" misses it every day. Here one schedule starts the whole chain and
+# each stage waits for the one before, so the order holds however late the run starts.
+#
+# Order:  targets -> baselines -> submissions -> bundling -> scoring -> dashboard
+#                                                                  \-> catalog
+#   submissions   reads the new forecasts (the daily baselines first, so they are bundled too)
+#   bundling      folds them into the files the dashboard and scoring read
+#   scoring       scores them against the targets updated at the start
+#   dashboard     built from the bundled forecasts and the new scores
+# A stage that fails does not stop the ones after it (they work with what exists, and the
+# run is marked failed); cancelling the run does.
+#
+# Submitters: a forecast committed before this run's submissions stage is in this run's
+# dashboard. Starting at 03:17 UTC, the run reaches submissions after midnight whatever the
+# delay, so the deadline for a forecast is a date: see `dashboard$settle_days`.
+# The minute (17) is deliberate: GitHub says the start of every hour is a high-load time.
+name: pipeline
+
+on:
+  schedule:
+    - cron: '17 3 * * *'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry run: read real data, write nothing (output kept as an artifact)'
+        type: boolean
+        default: false
+
+# One pipeline at a time; a manual run waits for the scheduled one.
+concurrency:
+  group: pipeline
+  cancel-in-progress: false
+
+# The dashboard pushes to gh-pages, and the catalog to a branch of this repository.
+permissions:
+  contents: write
+
+jobs:
+  # Sunday's run also makes the weekly baselines.
+  calendar:
+    runs-on: ubuntu-latest
+    outputs:
+      sunday: ${{ steps.day.outputs.sunday }}
+    steps:
+      - id: day
+        run: echo "sunday=$([ "$(date -u +%u)" = 7 ] && echo true || echo false)" >> "$GITHUB_OUTPUT"
+
+  targets:
+    uses: rqthomas/challenge-ci/.github/workflows/_targets.yaml@v0.1.0-rc.14
+    with:
+      dry_run: ${{ inputs.dry_run || false }}
+    secrets: inherit
+
+  baselines:
+    needs: targets
+    if: ${{ !cancelled() }}
+    uses: rqthomas/challenge-ci/.github/workflows/_baselines.yaml@v0.1.0-rc.14
+    with:
+      dry_run: ${{ inputs.dry_run || false }}
+      schedule: daily
+    secrets: inherit
+
+  baselines_weekly:
+    needs: [calendar, baselines]
+    if: ${{ !cancelled() && needs.calendar.outputs.sunday == 'true' }}
+    uses: rqthomas/challenge-ci/.github/workflows/_baselines.yaml@v0.1.0-rc.14
+    with:
+      dry_run: ${{ inputs.dry_run || false }}
+      schedule: weekly
+    secrets: inherit
+
+  submissions:
+    needs: [baselines, baselines_weekly]
+    if: ${{ !cancelled() }}
+    uses: rqthomas/challenge-ci/.github/workflows/_submissions.yaml@v0.1.0-rc.14
+    with:
+      dry_run: ${{ inputs.dry_run || false }}
+    secrets: inherit
+
+  bundling:
+    needs: submissions
+    if: ${{ !cancelled() }}
+    uses: rqthomas/challenge-ci/.github/workflows/_bundling.yaml@v0.1.0-rc.14
+    with:
+      dry_run: ${{ inputs.dry_run || false }}
+    secrets: inherit
+
+  scoring:
+    needs: bundling
+    if: ${{ !cancelled() }}
+    uses: rqthomas/challenge-ci/.github/workflows/_scoring.yaml@v0.1.0-rc.14
+    with:
+      dry_run: ${{ inputs.dry_run || false }}
+    secrets: inherit
+
+  dashboard:
+    needs: scoring
+    if: ${{ !cancelled() }}
+    uses: rqthomas/challenge-ci/.github/workflows/_dashboard.yaml@v0.1.0-rc.14
+    with:
+      dry_run: ${{ inputs.dry_run || false }}
+    secrets: inherit
+
+  catalog:
+    needs: scoring
+    if: ${{ !cancelled() }}
+    uses: rqthomas/challenge-ci/.github/workflows/_catalog.yaml@v0.1.0-rc.14
+    with:
+      dry_run: ${{ inputs.dry_run || false }}
+    secrets: inherit

@@ -126,6 +126,10 @@ dashboard:
   n_plot_sites: 2
   # The leaderboard's "Horizon" toggle: all horizons, or one of these lead times (days).
   horizons: [1, 7]
+  # A forecast for reference date D is the "latest forecast" at the update on day D + settle_days, so
+  # submitters have until the end of day D + settle_days - 1 (UTC). The example submission's forecasts
+  # arrive 1 to 2 days after their reference date (it starts from the latest weather run), so 3.
+  settle_days: 3
   # A working example submission, linked from the instructions.
   example_submission_repo: rqthomas/challenge-template-example-submission
 

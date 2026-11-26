@@ -1,15 +1,11 @@
 # Trigger for the engine's baseline-forecasts workflow. Copy into .github/workflows/ of a
 # challenge repository; set the schedule, and the engine version after @.
-# The daily cron runs the `daily` baselines, the weekly cron the `weekly` ones;
-# if you change the weekly cron, change the same string in `schedule:` below.
+# pipeline.yaml runs the `daily` baselines every day and the `weekly` ones on Sunday; run either by hand here.
 name: baseline-forecasts
 
 on:
-  # Off until the challenge is set up: uncomment to turn the schedule on
-  # (step 12 of docs/launching-a-new-challenge.md in the engine).
-  schedule:
-     - cron: '0 20 * * *'
-  #  - cron: '0 1 * * SUN'
+  # No schedule here: pipeline.yaml runs this stage, in order with the others.
+  # This trigger is for manual and dry runs.
   workflow_dispatch:
     inputs:
       dry_run:
