@@ -121,12 +121,13 @@ In one chain the order holds however late the run starts. The schedule is `17 3 
 the hour, since GitHub says the start of every hour is busy).
 
 **The deadline is a date.** The dashboard shows the forecast for reference date D at its update
-on day D + `dashboard: settle_days` (3 here), so a forecast must be committed by the end of day
-D + 2 (UTC). Later forecasts are still read and scored; they just are not the one on the latest
+on day D + `dashboard: settle_days` (2 here), so a forecast must be committed by the end of day
+D + 1 (UTC). Later forecasts are still read and scored; they just are not the one on the latest
 views. The *Participate* and *Instructions* pages state this from the setting. The example
-submission's forecasts arrive 1 to 2 days after their reference date, which is why the setting is 3
-and not the default 2. Submitters should schedule their job twice a day, off the hour (the example
-repository does), so a late or dropped run still makes the deadline.
+submission is dated the day it is made (it uses yesterday's weather run), so the default 2 is
+enough; raise the setting if your slowest regular submitter's forecasts arrive later. Submitters
+should schedule their job twice a day, off the hour (the example repository does), so a late or
+dropped run still makes the deadline.
 
 ## Set up a free Backblaze B2 private bucket
 
