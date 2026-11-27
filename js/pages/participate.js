@@ -42,6 +42,17 @@ export function init() {
     const issueUrl = c.repo ? `https://github.com/${c.repo}/issues/new?template=register-forecast-repo.yml` : null;
     const keyRequest = c.key_request_url || (c.contact_email ? `mailto:${c.contact_email}?subject=${encodeURIComponent(`Read-only key for ${c.id}`)}` : null);
 
+    // When a forecast shows on the "latest forecast" views. The dashboard is updated once a day, at
+    // an hour that varies (GitHub's free scheduler can start a run hours late), so the deadline is a date.
+    const settle = Number.isInteger(meta.settle_days) ? meta.settle_days : 2;
+    const deadline = h('div', { class: 'callout', style: 'border:1px solid var(--line);border-radius:var(--radius);padding:12px 14px;background:var(--surface)' },
+      h('div', { style: 'font-weight:600;margin-bottom:4px' }, 'When to submit'),
+      h('div', { class: 'small' }, settle === 0
+        ? 'A forecast is shown on the latest-forecast views at the next dashboard update after it is read.'
+        : ['A forecast for reference date ', h('strong', null, 'D'), ` is shown on the latest-forecast views at the dashboard update on day D+${settle}. Commit it by the `,
+          h('strong', null, `end of day D${settle > 1 ? `+${settle - 1}` : ''} (UTC)`), '. The dashboard updates once a day, at an hour that varies, so the deadline is a date, not a time of day.']),
+      h('div', { class: 'small muted', style: 'margin-top:4px' }, 'A forecast that misses it is still read and scored; it just is not the one on those views.'));
+
     const steps = [
       {
         title: 'Read the targets', id: 'key',
@@ -78,7 +89,8 @@ export function init() {
         title: github ? 'Push' : 'Submit',
         body: github ? [
           h('pre', null, h('code', null, 'git add forecasts/\ngit commit -m "forecast for 2026-01-01"\ngit push')),
-          h('p', { class: 'muted small', style: 'margin:0' }, 'A file is read once, the first time it is seen. To correct a mistake, make a new file for a new date.'),
+          h('p', { class: 'muted small', style: 'margin:0 0 10px' }, 'A file is read once, the first time it is seen. To correct a mistake, make a new file for a new date.'),
+          deadline,
         ] : [h('p', { class: 'muted', style: 'margin:0' }, 'Upload your forecast file as described in the ', h('a', { href: 'instructions.html' }, 'instructions'), '.')],
       },
     ];
