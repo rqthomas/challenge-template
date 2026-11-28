@@ -16,10 +16,10 @@
   "properties": {
     "title": "example_lake_model",
     "description": "All scores for the Daily_Water_temperature variable for the example_lake_model model. Information for the model is provided as follows: At each lake, a linear regression of daily mean water temperature on daily mean 2 m air temperature from the NOAA GEFS analysis, fitted to the past year. It is driven by the 31 members of the NOAA GEFS ensemble weather forecast (both read from dynamical.org), each member's air temperature passed through the regression plus a draw from its residuals, to give a 31-member ensemble forecast of water temperature. A deliberately simple model that shows the ensemble submission format and how to read weather forecasts from dynamical.org.. The model predicts this variable at the following sites: bvre, fcre. Scores are metrics that describe how well forecasts compare to observations. The scores catalog includes summaries of the forecasts (i.e., mean, median, confidence intervals), matched observations (if available), and scores (metrics of how well the model distribution compares to observations).",
-    "datetime": "2026-11-24T00:00:00Z",
-    "updated": "2026-11-26T00:00:00Z",
+    "datetime": "2026-11-26T00:00:00Z",
+    "updated": "2026-11-28T00:00:00Z",
     "start_datetime": "2026-11-20T00:00:00Z",
-    "end_datetime": "2026-11-26T00:00:00Z",
+    "end_datetime": "2026-11-27T00:00:00Z",
     "providers": [
       {
         "url": "https://rqthomas.github.io/challenge-template/",
